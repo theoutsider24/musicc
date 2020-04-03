@@ -1,0 +1,96 @@
+<!-- # MUSICC - Multi User Scenario Catalogue for Connected and Autonomous Vehicles
+# Copyright (C)2020 Connected Places Catapult
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: musicc-support@cp.catapult.org.uk
+#          https://cp.catapult.org.uk/case-studies/musicc/'
+#
+-->
+{% load permission_tags %}
+<div>
+    <div class="controls">
+        {% if user|has_role:'moderator' %}
+        {% if not comments_disabled %}
+        <button class="moderator disable" action="disable">Disable comments</button>
+        {% else %}
+        <button class="moderator enable" action="enable">Enable comments</button>
+        {% endif %}
+
+        {% if not comments_locked %}
+        <button class="moderator lock" action="lock">Lock comments</button>
+        {% else %}
+        <button class="moderator unlock" action="unlock">Unlock comments</button>
+        {% endif %}
+
+        {% endif %}
+        <input type="checkbox" id="version-checkbox"><span>Only show comments for this version</span>
+    </div>
+    {% if not comments_disabled %}
+    <div id="comment-wrapper">
+        {% if comments %}
+        {% for comment in comments %}
+        <div class="comment {% if not comment.active %}deleted{% endif %}" version="{{comment.musicc.version}}">
+            <div>
+                <span>{{comment.updated_by_user.get_full_name}}</span>
+                {% if comment.updated_by_user == comment.musicc.updated_by_user %}<span
+                    class="tag author">author</span>{% endif %}
+                {% if comment.updated_by_user|has_role:'curator' %}<span class="tag curator">curator</span>{% endif %}
+                {% if comment.updated_by_user|has_role:'moderator' %}<span
+                    class="tag moderator">moderator</span>{% endif %}
+                <span class="version">{{comment.updated_date_time}} - Version {{comment.musicc.version}}</span></div>
+            <div class="comment-content">
+                {% if comment.scenario_broken %}
+                <div class="ui-icon ui-icon-alert" title="This scenario may be broken"></div>
+                {% endif %}
+                {{comment.message}}
+                {% if user|has_role:'moderator' %}
+                {% if comment.active %}<button class="delete"
+                    onclick="$.ajax({'url':'search/detail/comment/delete?id={{comment.id}}', 'success':reload})">delete</button>
+                {% else %} <button class="undelete"
+                    onclick="$.ajax({'url':'search/detail/comment/undelete?id={{comment.id}}', 'success':reload})">undelete</button>
+                {% endif %}
+                {% endif %}</div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="comments-disabled">No one has left a comment yet</div>
+        {% endif %}
+    </div>
+
+
+
+    <div class="comment-text-area">
+        {% if not comments_locked %}
+        <form autocomplete="off">
+            <div>
+                <input type="text" name="comment" placeholder="Comment on latest version" maxlength=256 minlength=3>
+            </div>
+            <input type="hidden" name="is_broken" value="false">
+            <input type="hidden" name="id" value="{{musicc.id}}">
+            <div>                
+                <div class="ui-icon ui-icon-alert"></div>
+                <input type="checkbox" title="This scenario is broken">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+        {% else %}
+        <div class="comments-locked">Comments are locked on this thread</div>
+        {% endif %}
+    </div>
+</div>
+{% else %}
+<div class="comments-disabled">Comments are disabled on this thread</div>
+</div>
+{% endif %}

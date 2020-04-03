@@ -1,0 +1,20 @@
+Doxyfile
+Dockerfile
+logs
+package.json
+Sample Data
+karma.conf.js
+.dockerignore
+external
+scripts/run-tests.sh
+test_artefacts
+.coveragerc
+.git
+.gitignore
+.public-gitignore
+node_modules
+.sonarlint
+.vscode
+docker-compose.prod.yml
+docker-compose.public.yml
+docker-compose.deploy.yml

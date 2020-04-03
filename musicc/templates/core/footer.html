@@ -1,0 +1,37 @@
+<!-- # MUSICC - Multi User Scenario Catalogue for Connected and Autonomous Vehicles
+# Copyright (C)2020 Connected Places Catapult
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: musicc-support@cp.catapult.org.uk
+#          https://cp.catapult.org.uk/case-studies/musicc/'
+#
+-->
+{% load permission_tags %}
+<div class="footer">
+	<ul>
+		{% if user.is_authenticated %}
+		<li><a href='/search'>search</a></li>
+		{% if user|has_role:'curator' %}
+		<li><a href='/curation'>curation</a></li>
+		{% endif %}
+		{% if user.is_superuser %}
+		<li><a href='/system'>system</a></li>
+		{% endif %}
+		<li><a href='/release_notes'>release notes</a></li>
+		{% comment %} <li><a href='/docs/index.html'>documentation</a></li> {% endcomment %}
+		{% endif %}
+	</ul>
+	<span>© 2020 Connected Places Catapult. All rights reserved. <a href="{% url 'terms_and_conditions' %}"> MUSICC Terms and Conditions</a> | <a href="{% url 'privacy_policy' %}">CPC Privacy Policy</a></span>
+</div>

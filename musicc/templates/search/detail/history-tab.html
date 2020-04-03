@@ -1,0 +1,50 @@
+<!-- # MUSICC - Multi User Scenario Catalogue for Connected and Autonomous Vehicles
+# Copyright (C)2020 Connected Places Catapult
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: musicc-support@cp.catapult.org.uk
+#          https://cp.catapult.org.uk/case-studies/musicc/'
+#
+-->
+{% if next_revision %}<a href="/search#{{next_revision.instance_prefix}}{{next_revision.friendly_id}}">Next revision - {{next_revision.revision.revision}}</a>{% endif %}
+<table>
+    {% for change in history %}
+    <tr {% if change.version == musicc.version %}class='ui-state-active' {% endif %} mus_id="{{change.mus}}" version="{{change.version}}">
+        <td>
+            <p>Version {{change.version}}</p>
+            <p>{{change.time}} UTC</p>
+            <p>{{change.user.get_full_name}}</p>
+
+        </td>
+        <td>
+            <div id="mus-{{change.mus}}"
+                class="file {% if change.version == musicc.version %}ui-state-active{% endif %}" type="mus">{{change.mus}}<br>.xmus</div>
+        </td>
+        <td>{% if change.osc != None %}<div id="osc-{{change.osc}}" class="file" type="osc">{{change.osc}}<br>.xosc
+            </div>{% endif %}</td>
+        <td>{% if change.odr != None %}<div id="odr-{{change.odr}}" class="file" type="odr">{{change.odr}}<br>.xodr
+            </div>{% endif %}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% if previous_revision %}<a href="/search#{{previous_revision.instance_prefix}}{{previous_revision.friendly_id}}">Previous revision - {{previous_revision.revision.revision}}</a>{% endif %}
+
+
+<ul class='custom-menu'>
+    <li data-action = "view">View file</li>
+    <li data-action = "diff-prev">Compare with previous</li>
+    <li data-action = "diff-select">Select for comparison</li>
+    <li data-action = "diff-compare">Compare with selected</li>
+</ul>

@@ -1,0 +1,11 @@
+site_name: MUSICC
+use_directory_urls: false
+docs_dir: docs
+site_dir: musicc/static/docs
+
+theme: readthedocs
+
+nav:
+    - Home: "index.md"
+    - Operation:
+          - "Docker Installation": "docker_installation.md"

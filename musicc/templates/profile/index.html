@@ -1,0 +1,59 @@
+<!-- # MUSICC - Multi User Scenario Catalogue for Connected and Autonomous Vehicles
+# Copyright (C)2020 Connected Places Catapult
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: musicc-support@cp.catapult.org.uk
+#          https://cp.catapult.org.uk/case-studies/musicc/'
+#
+-->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static "/css/profile.css" %}?ver={{VERSION}}">
+<link rel="stylesheet" href="{% static "/css/detail.css" %}?ver={{VERSION}}">
+<link rel="stylesheet" href="{% static "/css/profile.css" %}?ver={{VERSION}}">
+<link rel="stylesheet" href="{% static "/css/lib/json-viewer.css" %}">
+<script src="{% static "/js/common/toasts.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/common/tools.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/common/json.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/profile/main.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/common/detail.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/lib/jsonViewer.js" %}"></script>
+<script src="{% static "/js/lib/json-viewer.js" %}"></script>
+<link rel="stylesheet" href="{% static "/css/lib/diff2html.css" %}">
+<script src="{% static "/js/lib/diff2html.js" %}"></script>
+<div id="profile-body">
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#submissions-tab">Submissions</a></li>
+            <li><a href="#my-registered-systems-tab">My Registered Systems</a></li>
+        </ul>
+        <div id="submissions-tab">
+            {% include "profile/submissions-tab.html" %}
+        </div>
+        <div id="my-registered-systems-tab">
+            {% include "profile/my-registered-systems-tab.html" %}
+        </div>
+    </div>
+</div>
+
+<div id="dialog-confirm" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span></p>
+</div>
+
+{% endblock %}

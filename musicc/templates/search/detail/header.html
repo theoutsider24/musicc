@@ -1,0 +1,81 @@
+<!-- # MUSICC - Multi User Scenario Catalogue for Connected and Autonomous Vehicles
+# Copyright (C)2020 Connected Places Catapult
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: musicc-support@cp.catapult.org.uk
+#          https://cp.catapult.org.uk/case-studies/musicc/'
+#
+-->
+<div>
+    <div id="header">
+        <div id="favourite">
+            <favorite-star id="favourite"><span class="favorite-star-character"
+                    {% if favourite %}active{% endif %}>&#x2605;</span></favorite-star>
+        </div>
+
+        <div id="label"><span>{{musicc.label}}<span></div>
+        {% if "tagging" in enabled_features %}
+        <div id="tags">
+            <div id="tag-container">
+                {% for tag in musicc.metadata.GlobalTags.GlobalTag %}
+                <div class="tag">{{tag}}</div>
+                {% endfor %}
+                {% for tag in tags %}
+                <div class="tag">{{tag}}<div class="ui-icon ui-icon-close"></div>
+                </div>
+                {% endfor %}
+                <div class="add-tag ui-icon ui-icon-plus"></div>
+            </div>
+        </div>
+        {% endif %}
+        <div id="revision">
+            <div>Revision:</div>
+            <span id="revision-button" class="dropbtn">
+                <a>{{ musicc.revision.revision }}</a>
+            </span>
+            <div id="revision-button-dropdown" class="dropdown-content">
+                {% for revision in revisions %}
+                <a href='/search#{{revision.id}}'
+                    {% if revision.revision == musicc.revision.revision %}class='ui-state-active' {% endif %}>
+                    {{revision.revision}}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+
+
+        <div id="version">
+            <div>Version: </div><span><a>{{musicc.version}}</a></span>
+        </div>
+        <div id="last-updated">Last updated: <span>{{musicc.updated_date_time|date:"d M Y"}}</span></div>
+
+        <div id="owner"><span>{{ musicc.updated_by_user.get_full_name }} - {{organisation}}</span></div>
+
+        <div id="download">
+            <button class="dropbtn">
+                Download
+            </button>
+            <div id="individual-download-button-dropdown" class="dropdown-content">
+                <a value="true">Native ({{musicc.metadata.ScenarioType}})</a>
+                <a value="false">Concrete</a>
+            </div>
+            <form>
+                <input type="hidden" name="id" value="{{musicc.id}}" />
+                <input type="hidden" name="native" value="true" />
+            </form>
+        </div>
+    </div>
+</div>

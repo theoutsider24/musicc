@@ -1,0 +1,43 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Python: Django",
+			"type": "python",
+			"request": "launch",
+			"program": "${workspaceFolder}/manage.py",
+			"console": "integratedTerminal",
+			"args": [
+				"runserver",
+				"--nothreading",
+				"0.0.0.0:8000"
+			],
+			"django": true
+		},
+		{
+			"name": "Python: Django - Test",
+			"type": "python",
+			"request": "launch",
+			"program": "${workspaceFolder}/manage.py",
+			"console": "integratedTerminal",
+			"args": [
+				"test",
+			],
+			"django": true
+        },
+		{
+			"name": "Python: Migration - test",
+			"type": "python",
+			"request": "launch",
+            "program": "${workspaceFolder}/external/python/curator/migration.py",
+            "cwd": "${workspaceFolder}/external/python/curator",
+			"console": "integratedTerminal",
+			"args": [
+				"--dir", "output_directory", "--mus-zip", "migration_input3.zip", "--xsd-zip","musicc_0.1.4.zip","--zip","migrated_files.zip","--script", "example_migration_module.py"
+			],
+		}
+	]
+}

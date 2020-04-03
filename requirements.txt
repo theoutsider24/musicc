@@ -1,0 +1,17 @@
+Django==2.2
+psycopg2-binary==2.7.6.1
+xmljson==0.2.0
+simplejson==3.16.0
+lxml==4.3.0
+django-nose==1.4.6
+coverage==4.3.4
+django-db-logger==0.1.7
+numpy==1.16.2
+coverage2clover==1.4.0
+pillow==5.4.1
+django-role-permissions==2.2.1
+PyYAML==3.12
+ua-parser==0.8.0
+user-agents==2.0
+django-user-agents==0.4.0
+requests==2.19.1

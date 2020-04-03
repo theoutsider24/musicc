@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<MUSICCScenario
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="MUSICC_0.1.0.xsd">
+
+    <FileHeader label="UK CPC-Demo highway_test_double_lane_change"
+                version="3"
+                updateDateTime="2019-07-26T10:00:00"
+                updateUsername="Zeyn Saigol"
+                revision="0.1.0" />
+
+    <Metadata>
+        <Description value="Busy highway cut-in with ego in middle lane, braking vehicle ahead in outside lane, and inside lane blocked by an HGV" />
+        <CountryCode value="GB"/>
+        <DriveOnRightOrLeft value="Left"/>
+        <UseCase value="Highway"/>
+        <ScenarioType value="Logical"/>  <!-- Alternative is Concrete, which implies no stochastics -->
+
+        <Exposure value="E2"/>
+        <SituationDemand value="High"/>
+        <CollisionCategory value="NormalDriving"/> <!-- Alternatives are Collision or NearCollision -->
+        <InitialSpeedLimit value="Urban"/>
+
+        <RealWorldMap value="true" mapDataValidDateTime="2017-07-23T11:03:00Z"/>
+        <RealWorldCoordinate latitude="52.038386" longitude="-0.767261"/>
+
+        <RepresentsADASTest value="true"/>
+        <ADASFeaturesTested>
+            <ADASFeature value="AEB"/>
+            <!-- Full list given in XSD -->
+        </ADASFeaturesTested>
+
+        <RoadFeatures>
+            <!-- Full list given here for review -->
+            <RoadFeature value="Roundabout" />
+            <RoadFeature value="HighwayEntranceRamp" /> <!-- AKA slip road, on-ramp -->
+            <RoadFeature value="HighwayExitRamp" /> <!-- AKA slip road, off-ramp -->
+            <RoadFeature value="TrafficLightControlledJunction" />
+            <RoadFeature value="3LegJunction" /> <!-- Often a T-Junction -->
+            <RoadFeature value="4LegJunction" />
+            <RoadFeature value="MoreThan4LegJunction" />
+            <RoadFeature value="RailwayCrossing" />
+            <RoadFeature value="PedestrianCrossing" />
+            <RoadFeature value="StopSign" />
+            <RoadFeature value="GiveWaySign" />  <!-- AKA yield sign -->
+            <RoadFeature value="1Lane" />  <!-- AKA single-track road -->
+            <RoadFeature value="2Lane" />
+            <RoadFeature value="3Lane" />
+            <RoadFeature value="4Lane" />
+            <RoadFeature value="MoreThan4Lanes" />
+            <RoadFeature value="DividedCarriageway" />  <!-- Implies a physical median, AKA a central reservation -->
+            <RoadFeature value="OneWayRoad" />
+            <RoadFeature value="BicycleLane" />
+            <RoadFeature value="HighGradient" />
+            <RoadFeature value="SharpBend" />
+            <RoadFeature value="Roadworks" />
+            <RoadFeature value="Tunnel" />
+        </RoadFeatures>
+
+        <EnvironmentalConditions>
+            <!-- Full list given here for review -->
+            <EnvironmentalCondition value="Rain" />
+            <EnvironmentalCondition value="NoRainButRoadWet" />
+            <EnvironmentalCondition value="Snow" />
+            <EnvironmentalCondition value="Ice" />
+            <EnvironmentalCondition value="Fog" />
+            <EnvironmentalCondition value="Cloudy" />
+            <!-- Time-of-day -->
+            <EnvironmentalCondition value="Daylight" />
+            <EnvironmentalCondition value="Night" />
+            <EnvironmentalCondition value="Dawn" />
+            <EnvironmentalCondition value="Dusk" />
+        </EnvironmentalConditions>
+
+        <EgoManeuverTypes>
+            <!-- Full list given here for review -->
+            <EgoManeuverType value="RightTurn" />
+            <EgoManeuverType value="LeftTurn" />
+            <EgoManeuverType value="GoStraightAtJunction" />
+            <EgoManeuverType value="CrossTrafficTurn" /> <!-- Left turn in countries that drive on the right -->
+            <EgoManeuverType value="WithTrafficTurn" /> <!-- Right turn in countries that drive on the right -->
+            <EgoManeuverType value="UTurn" />
+            <EgoManeuverType value="TurnOntoMinorRoad" />
+            <EgoManeuverType value="TurnOntoMajorRoad" />
+            <EgoManeuverType value="HighwayMerge" />
+            <EgoManeuverType value="HighwayExit" />
+        </EgoManeuverTypes>
+
+        <KeyActorTypes>
+            <!-- Full list given here for review -->
+            <KeyActorType value="PassengerCar" />
+            <KeyActorType value="Truck" />
+            <KeyActorType value="Bus" />
+            <KeyActorType value="Motorcycle" />
+            <KeyActorType value="SmallLowSpeedVehicle" />
+            <KeyActorType value="EmergencyVehicle" />
+            <KeyActorType value="PedalCycle" />
+            <KeyActorType value="Trailer" />
+            <KeyActorType value="MotorizedOffRoadVehicle" />
+            <KeyActorType value="AnimalDrawnVehicle" />
+            <KeyActorType value="RailedVehicle" />
+            <KeyActorType value="RailRoadVehicle" />
+            <KeyActorType value="AnimalRider" />
+            <KeyActorType value="Pedestrian" />
+            <KeyActorType value="TrafficControlPerson" />
+            <!-- Extra categories not part of WISE Drive -->
+            <KeyActorType value="Animal" />
+            <KeyActorType value="InanimateObstacle" />
+        </KeyActorTypes>
+
+        <KeyActorActions>
+            <!-- Full list given here for review -->
+            <KeyActorAction value="ActorCrossingRoad" />
+            <KeyActorAction value="ActorStoppedInRoad" />
+            <KeyActorAction value="EmergencyStop" />
+            <KeyActorAction value="CutIn" />
+            <KeyActorAction value="Overtake" />
+            <KeyActorAction value="EmergencyStop" />
+            <KeyActorAction value="WrongWayTravel" />
+        </KeyActorActions>
+
+        <TrafficDensity value="FreeFlow"/>
+        <TrafficAverageSpeed value="UrbanFlowing"/>
+
+        <Regulations>
+            <Regulation value="UNECE-GRVA-Res2135"/>
+            <Regulation value="UK-RTA-2019-345"/>
+        </Regulations>
+
+        <CustomMetadata>
+            <CustomTag name="UNECE-Test-Set" value="2019:023" />
+        </CustomMetadata>
+
+        <SourceOrganization value="Connected Places Catapult"/>
+        <OwningOrganization value="Connected Places Catapult"/>
+    </Metadata>
+
+    <ObjectGoalPositions>
+        <Private object="Ego">  <!-- Allows for other "smart" agents to also have goal positions -->
+            <Action>
+                <Position>
+                    <World x="0" y="10" z="9.5" h="0" p="0" r="0"/>
+                </Position>
+            </Action>
+        </Private>
+    </ObjectGoalPositions>
+
+    <ParameterStochastics> <!-- This closely follows the PEGASUS schema for logical scenarios -->
+        <RoadNetwork>
+            <ParameterGroup name="">
+                <Parameter name="$someODRparameter" unit="metres" type="int">
+                    <Distribution>
+                        <NormalDistribution expectedValue="33.4" variance="10" />
+                    </Distribution>
+                </Parameter>
+            </ParameterGroup>
+        </RoadNetwork>
+
+        <OpenScenario>
+            <ParameterGroup name="">
+                <Parameter name="$someOSCparameter" unit="metres" type="int">
+                    <Distribution>
+                        <NormalDistribution expectedValue="33.4" variance="10" />
+                    </Distribution>
+                </Parameter>
+
+                <Parameter name="$otherOSCparameter" unit="weather-unit" type="string">
+                    <Distribution>
+                        <SingleValues>
+                            <List>
+                                <ListElement value="Rain" label="" probabilityOfOccurence="0.25" />
+                                <ListElement value="Snow" label="" probabilityOfOccurence="0.05" />
+                            </List>
+                        </SingleValues>
+                    </Distribution>
+                </Parameter>
+            </ParameterGroup>
+        </OpenScenario>
+    </ParameterStochastics>
+
+    <ThreeDimensionalModels/> <!-- TBD but for now use OpenSceneGraph as per OpenSCENARIO -->
+
+    <OpenSCENARIO filepath="32564.xosc"/>
+    <OpenDRIVE filepath="RQ31_130Limit.xodr"/>
+
+</MUSICCScenario>

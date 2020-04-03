@@ -1,0 +1,65 @@
+<!-- # MUSICC - Multi User Scenario Catalogue for Connected and Autonomous Vehicles
+# Copyright (C)2020 Connected Places Catapult
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: musicc-support@cp.catapult.org.uk
+#          https://cp.catapult.org.uk/case-studies/musicc/'
+#
+-->
+<div id="result-pane">
+	<div>
+		<select>
+			<option hidden disabled selected value></option>
+			<optgroup label="Logic" />
+			<optgroup label="Comparison" />
+			<optgroup label="Fields" />
+		</select>
+		<input id="search-bar" placeholder=" query"></input>
+		<button id="search-button">Search</button>
+		<form>
+			<input type="hidden" name="query_id" />
+			<input type="hidden" name="native" value="true" />
+		</form>
+
+		<div class="dropdown">
+			<button id="download-button" class="dropbtn">Download</button>
+			<div id="download-button-dropdown" class="dropdown-content">
+				<a value="true">Native (Logical)</a>
+				<a value="false">Concrete</a>
+			</div>
+		</div>
+		<span class="ui-icon help" title="{{tooltips.download_help}}"></span>
+	</div>
+	<div id="advanced-options">
+		<button id="advanced-options-toggle" class="dropbtn">Advanced options</button>
+		<div class="dropdown-content">
+			<h4>Download Options</h4>
+			<p>
+				<label for="spinner">Number of concrete scenarios per logical scenario:   </label>
+				<input id="spinner" name="concrete_per_logical">
+			</p>
+			<p>
+				<label for="exclude_resources">Exclude resources:   </label>
+				<input id="exclude_resources" name="exclude_resources" type="checkbox">
+			</p>
+			<p>
+				<label for="exclude_images">Exclude images:   </label>
+				<input id="exclude_images" name="exclude_images" type="checkbox" checked>
+			</p>
+		</div>
+	</div>
+	<table id="result-table" class="display" style="width:100%">
+	</table>
+</div>

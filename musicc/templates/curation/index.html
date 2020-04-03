@@ -1,0 +1,71 @@
+<!-- # MUSICC - Multi User Scenario Catalogue for Connected and Autonomous Vehicles
+# Copyright (C)2020 Connected Places Catapult
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: musicc-support@cp.catapult.org.uk
+#          https://cp.catapult.org.uk/case-studies/musicc/'
+#
+-->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static "/css/detail.css" %}?ver={{VERSION}}">
+<link rel="stylesheet" href="{% static "/css/curation.css" %}?ver={{VERSION}}">
+<link rel="stylesheet" href="{% static "/css/lib/json-viewer.css" %}">
+<link rel="stylesheet" href="{% static "/css/lib/diff2html.css" %}">
+<script src="{% static "/js/common/toasts.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/common/tools.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/common/json.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/curation/main.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/search/resultTable.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/common/detail.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/lib/jsonViewer.js" %}"></script>
+<script src="{% static "/js/lib/json-viewer.js" %}"></script>
+<script src="{% static "/js/lib/diff2html.js" %}"></script>
+<div id="curation-body">
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#revision-tab">Revisions</a></li>
+            <li><a href="#scenario-tab">Scenarios</a></li>
+            <li><a href="#changes-tab">Changes</a></li>
+            <li><a href="#approvals-tab">Approvals</a></li>
+            <li><a href="#downloads-tab">Downloads</a></li>
+        </ul>
+        <div id="revision-tab">
+            {% include "curation/revision-tab.html" %}
+        </div>
+        <div id="scenario-tab">
+            {% include "curation/scenario-tab.html" %}
+        </div>
+        <div id="changes-tab">
+            {% include "curation/changes-tab.html" %}
+        </div>
+        <div id="approvals-tab">
+            {% include "curation/approvals-tab.html" %}
+        </div>
+        <div id="downloads-tab">
+            {% include "curation/downloads-tab.html" %}
+        </div>
+    </div>
+</div>
+
+<div id="dialog-confirm" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span></p>
+</div>
+
+{% endblock %}

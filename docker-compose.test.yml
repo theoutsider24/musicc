@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:12
+    networks:
+      - test_net
+  web:
+    build: .
+    entrypoint: dockerize -wait tcp://db:5432 /code/scripts/run-tests.sh ${CURRENT_UID}
+    networks:
+      - test_net
+    volumes:
+      - ./test_artefacts:/code/test_artefacts_external
+    user: root
+    depends_on:
+      - db
+networks:
+  test_net:

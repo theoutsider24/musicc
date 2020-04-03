@@ -1,0 +1,105 @@
+<!-- # MUSICC - Multi User Scenario Catalogue for Connected and Autonomous Vehicles
+# Copyright (C)2020 Connected Places Catapult
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: musicc-support@cp.catapult.org.uk
+#          https://cp.catapult.org.uk/case-studies/musicc/'
+#
+-->
+<div id="detail" mus_id="{{musicc.id}}">
+    {% include "search/detail/header.html" %}
+    <div id="content">
+        <div class="tabs left">
+            <ul>
+                <li><a href="#mus-tab">Musicc</a></li>
+                <li><a href="#osc-tab">OpenScenario</a></li>
+                <li><a href="#odr-tab">OpenDrive</a></li>
+            </ul>
+            <div id="mus-tab" file_id="{{musicc.instance_prefix}}{{musicc.friendly_id}}" type="mus">
+                <div class="diff-selector" type="mus">
+                    <span>Compare with version:</span>
+                    <select>
+                        <option>-</option>
+                        {% for version in versions %}
+                        <option>{{version}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="file-viewer">
+                    {{musicc_file}}
+                </div>
+            </div>
+            <div id="osc-tab" file_id="{{musicc.scenario.instance_prefix}}{{musicc.scenario.friendly_id}}" type="osc">
+                <div class="diff-selector" type="osc">
+                    <span>Compare with version:</span>
+                    <select>
+                        <option>-</option>
+                        {% for version in osc_versions %}
+                        <option>{{version}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="file-viewer">
+                    {{osc_file}}
+                </div>
+            </div>
+            <div id="odr-tab" file_id="{{musicc.open_drive.instance_prefix}}{{musicc.open_drive.friendly_id}}" type="odr">
+                <div class="diff-selector" type="odr">
+                    <span>Compare with version:</span>
+                    <select>
+                        <option>-</option>
+                        {% for version in odr_versions %}
+                        <option>{{version}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="file-viewer">
+                    {{odr_file}}
+                </div>
+            </div>
+        </div>
+        <div class="tabs right">
+            <ul>
+                <li><a href="#metadata-tab">Metadata</a></li>
+                {% if "comments" in enabled_features %}
+                <li><a href="#discussion-tab">Discussion</a></li>
+                {% endif %}
+                <li><a href="#history-tab">History</a></li>
+                <li><a href="#image-tab">Images</a></li>
+                {% if resources %}
+                <li><a href="#resource-tab">Resources</a></li>
+                {% endif %}
+
+            </ul>
+            <div id="metadata-tab">
+                {% include "search/detail/metadata-tab.html" %}
+            </div>
+            {% if "comments" in enabled_features %}
+            <div id="discussion-tab">
+                {% include "search/detail/discussion-tab.html" %}
+            </div>
+            {% endif %}
+            <div id="history-tab">
+                {% include "search/detail/history-tab.html" %}
+            </div>
+            <div id="image-tab">
+                {% include "search/detail/image-tab.html" %}
+            </div>
+            <div id="resource-tab">
+                {% include "search/detail/resource-tab.html" %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+#file-upload, #musicc-upload, #revision-file-upload {
+    border: black 1px solid;
+    width: 400px;
+    margin: 20px;
+}
+
+#file-upload #versions > div {
+    display: inline-block;
+    border-bottom: grey 1px solid;
+    border-right: grey 1px solid;
+    padding: 2px 15px;
+}
+
+input[type="file"] {
+    background-color: lightgrey;
+}
+
+#revision-table tr.inactive {
+    background-color: lightcoral;
+}
+
+#revision-table tr.active {
+    background-color: lightgreen;
+}
+
+#dialog-confirm > p ul {
+    overflow-y: scroll;
+    height: 30em;
+}
+
+#changes-table tr.creation {
+    background-color: lightgreen;
+}
+
+#changes-table tr.deletion {
+    background-color: lightcoral;
+}
+
+#changes-table tr.reverted {
+    background-color: lightgray;
+}
+
+button.edit.ui-icon-pencil {
+    background-size: 250px;
+}
+
+.ui-dialog > textarea {
+    resize: none;
+}
+
+textarea.ui-dialog-content.invalid {
+    background-color: lightcoral;
+}
+
+textarea.ui-dialog-content.valid {
+    background-color: lightgreen;
+}
+
+.ui-dialog div.toast-container {
+    position: absolute;
+    width: 100%;
+    padding-top: 5px;
+}
+
+.modal-diff {
+    width: fit-content;
+}

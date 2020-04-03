@@ -1,0 +1,1178 @@
+<?xml version="1.0"?>
+<!-- 
+MUSICC - Multi User Scenario Catalogue for Connected and Autonomous Vehicles
+Copyright (C)2020 Connected Places Catapult
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Contact: musicc-support@cp.catapult.org.uk
+         https://cp.catapult.org.uk/case-studies/musicc/ 
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"
+                schemaLocation="xml.xsd"/>
+
+
+    <xsd:element name="MUSICCScenario">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="FileHeader"             type="MUSFileHeader"/>
+                <xsd:element name="Metadata"               type="MUSMetadata"/>
+                <xsd:element name="EntityUnderTest"        type="MUSEntityUnderTest"      minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element name="ParameterStochastics"   type="MUSParameterStochastics" minOccurs="0"/>
+                
+                <xsd:element name="OpenSCENARIO">
+                    <xsd:complexType>
+                        <xsd:attribute name="filepath" type="xsd:string" use="required"/>
+                    </xsd:complexType>
+                </xsd:element>
+
+                <xsd:element name="OpenDRIVE">
+                    <xsd:complexType>
+                        <xsd:attribute name="filepath" type="xsd:string" use="required"/>
+                    </xsd:complexType>
+                </xsd:element>
+
+                <!--for future implementation. For now, loggers and tests will be stored in the resources directory and are defined by their file name-->
+                <!--xsd:element name="Loggers>
+                    <xsd:complexType>
+                        <xsd:attribute name="filepath" type="xsd:string" use="required"/>
+                    </xsd:complexType>
+                </xsd:element>
+
+                <xsd:element name="Tests">
+                    <xsd:complexType>
+                        <xsd:attribute name="filepath" type="xsd:string" use="required"/>
+                    </xsd:complexType>
+                </xsd:element-->
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="MUSFileHeader">
+        <xsd:annotation><xsd:documentation xml:lang="en">
+            The label and version of a MUSICC scenario form a unique key, and correspond
+            to a unique MUSICC scenario ID. The ID is conventionally used as the filename,
+            in the form "ID.xmus"
+        </xsd:documentation></xsd:annotation>
+
+        <!-- Revision number represented by THIS XSD FILE is fixed -->
+        <xsd:attribute name="revision"        type="xsd:string"          use="required"      fixed="0.1.5"/>
+        <xsd:attribute name="label"                                      use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="50"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="version"         type="xsd:positiveInteger" use="required"/>
+        <xsd:attribute name="updateDateTime"  type="xsd:dateTime"        use="required"/>
+        <xsd:attribute name="updateUsername"  type="xsd:string"          use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="MUSMetadata">
+        <xsd:sequence>
+
+            <xsd:element name="Description" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" use="required">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="2048"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:attribute>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="CountryCode" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="MUSISOCountryCode" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="DriveOnRightOrLeft" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" use="required">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="Right" />
+                                <xsd:enumeration value="Left" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:attribute>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="UseCase" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="MUSUseCase" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="ScenarioType" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="MUSScenarioType" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="Exposure" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="MUSExposure" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="TestcaseWeighting" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" use="required">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:decimal">
+                                <xsd:minInclusive value = "0"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:attribute>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="SituationDemand" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="MUSSituationDemand" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="CollisionCategory" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="MUSCollisionCategory" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="InitialSpeedLimit" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="MUSSpeedLimit" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="RealWorldMap" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+                    <xsd:attribute name="mapDataValidDateTime" type="xsd:dateTime" use="optional"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="RealWorldCoordinate" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="latitude" use="required">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:decimal">
+                                <xsd:minInclusive value="-90"/>
+                                <xsd:maxInclusive value="90"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:attribute>
+                    <xsd:attribute name="longitude" use="required">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:decimal">
+                                <xsd:minInclusive value="-180"/>
+                                <xsd:maxInclusive value="180"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:attribute>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="RepresentsADASTest" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="ADASFeaturesTested" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ADASFeature" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="value" type="MUSADASFeature" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="SceneGraphModelDetail" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="MUSModelDetailLevel" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="SceneGraphModelSensorRealism" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="TargetSensor" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="value" type="MUSTargetSensors" use="required"/> 
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="RoadFeatures" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RoadFeature" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="value" type="MUSRoadFeature" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="EnvironmentalConditions" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="EnvironmentalCondition" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="value" type="MUSEnvironmentalCondition" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="IntendedEgoVehicleTypes" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="EgoVehicleType" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="value" type="MUSVehicleType" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="EgoManeuverTypes" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="EgoManeuverType" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="value" type="MUSEgoManeuverType" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="KeyActorTypes" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="KeyActorType" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="value" type="MUSKeyActorType" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="KeyActorActions" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="KeyActorAction" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="value" type="MUSKeyActorAction" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="KeyActorRulesBroken" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RuleSet" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="value" type="MUSRuleSet" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="TrafficDensity" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="MUSTrafficDensity" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="TrafficAverageSpeed" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="MUSTrafficAverageSpeed" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="GlobalTags" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="GlobalTag" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="value" type="xsd:string" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="Regulations" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Regulation" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="value" type="xsd:string" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="CustomMetadata" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="CustomTag" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="name"  type="xsd:string" use="required"/>
+                                <xsd:attribute name="value" type="xsd:string" use="required"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="SourceOrganization" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="xsd:string" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="SourceFilepath" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="xsd:string" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="OwningOrganization" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="value" type="xsd:string" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="MUSISOCountryCode"> <xsd:annotation><xsd:documentation xml:lang="en">Two letter country codes from ISO 3166-1</xsd:documentation></xsd:annotation>
+            <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="AD"><xsd:annotation><xsd:documentation xml:lang="en"> Andorra</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AE"><xsd:annotation><xsd:documentation xml:lang="en"> United Arab Emirates (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AF"><xsd:annotation><xsd:documentation xml:lang="en"> Afghanistan</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AG"><xsd:annotation><xsd:documentation xml:lang="en"> Antigua and Barbuda</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AI"><xsd:annotation><xsd:documentation xml:lang="en"> Anguilla</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AL"><xsd:annotation><xsd:documentation xml:lang="en"> Albania</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AM"><xsd:annotation><xsd:documentation xml:lang="en"> Armenia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AO"><xsd:annotation><xsd:documentation xml:lang="en"> Angola</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AQ"><xsd:annotation><xsd:documentation xml:lang="en"> Antarctica</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AR"><xsd:annotation><xsd:documentation xml:lang="en"> Argentina</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AS"><xsd:annotation><xsd:documentation xml:lang="en"> American Samoa</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AT"><xsd:annotation><xsd:documentation xml:lang="en"> Austria</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AU"><xsd:annotation><xsd:documentation xml:lang="en"> Australia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AW"><xsd:annotation><xsd:documentation xml:lang="en"> Aruba</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AX"><xsd:annotation><xsd:documentation xml:lang="en"> Åland Islands</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="AZ"><xsd:annotation><xsd:documentation xml:lang="en"> Azerbaijan</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BA"><xsd:annotation><xsd:documentation xml:lang="en"> Bosnia and Herzegovina</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BB"><xsd:annotation><xsd:documentation xml:lang="en"> Barbados</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BD"><xsd:annotation><xsd:documentation xml:lang="en"> Bangladesh</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BE"><xsd:annotation><xsd:documentation xml:lang="en"> Belgium</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BF"><xsd:annotation><xsd:documentation xml:lang="en"> Burkina Faso</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BG"><xsd:annotation><xsd:documentation xml:lang="en"> Bulgaria</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BH"><xsd:annotation><xsd:documentation xml:lang="en"> Bahrain</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BI"><xsd:annotation><xsd:documentation xml:lang="en"> Burundi</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BJ"><xsd:annotation><xsd:documentation xml:lang="en"> Benin</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BL"><xsd:annotation><xsd:documentation xml:lang="en"> Saint Barthélemy</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BM"><xsd:annotation><xsd:documentation xml:lang="en"> Bermuda</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BN"><xsd:annotation><xsd:documentation xml:lang="en"> Brunei Darussalam</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BO"><xsd:annotation><xsd:documentation xml:lang="en"> Bolivia (Plurinational State of)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BQ"><xsd:annotation><xsd:documentation xml:lang="en"> Bonaire</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BR"><xsd:annotation><xsd:documentation xml:lang="en"> Brazil</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BS"><xsd:annotation><xsd:documentation xml:lang="en"> Bahamas (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BT"><xsd:annotation><xsd:documentation xml:lang="en"> Bhutan</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BV"><xsd:annotation><xsd:documentation xml:lang="en"> Bouvet Island</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BW"><xsd:annotation><xsd:documentation xml:lang="en"> Botswana</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BY"><xsd:annotation><xsd:documentation xml:lang="en"> Belarus</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="BZ"><xsd:annotation><xsd:documentation xml:lang="en"> Belize</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CA"><xsd:annotation><xsd:documentation xml:lang="en"> Canada</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CC"><xsd:annotation><xsd:documentation xml:lang="en"> Cocos (Keeling) Islands (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CD"><xsd:annotation><xsd:documentation xml:lang="en"> Congo (the Democratic Republic of the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CF"><xsd:annotation><xsd:documentation xml:lang="en"> Central African Republic (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CG"><xsd:annotation><xsd:documentation xml:lang="en"> Congo (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CH"><xsd:annotation><xsd:documentation xml:lang="en"> Switzerland</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CI"><xsd:annotation><xsd:documentation xml:lang="en"> Côte d'Ivoire</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CK"><xsd:annotation><xsd:documentation xml:lang="en"> Cook Islands (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CL"><xsd:annotation><xsd:documentation xml:lang="en"> Chile</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CM"><xsd:annotation><xsd:documentation xml:lang="en"> Cameroon</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CN"><xsd:annotation><xsd:documentation xml:lang="en"> China</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CO"><xsd:annotation><xsd:documentation xml:lang="en"> Colombia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CR"><xsd:annotation><xsd:documentation xml:lang="en"> Costa Rica</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CU"><xsd:annotation><xsd:documentation xml:lang="en"> Cuba</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CV"><xsd:annotation><xsd:documentation xml:lang="en"> Cabo Verde</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CW"><xsd:annotation><xsd:documentation xml:lang="en"> Curaçao</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CX"><xsd:annotation><xsd:documentation xml:lang="en"> Christmas Island</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CY"><xsd:annotation><xsd:documentation xml:lang="en"> Cyprus</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="CZ"><xsd:annotation><xsd:documentation xml:lang="en"> Czechia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="DE"><xsd:annotation><xsd:documentation xml:lang="en"> Germany</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="DJ"><xsd:annotation><xsd:documentation xml:lang="en"> Djibouti</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="DK"><xsd:annotation><xsd:documentation xml:lang="en"> Denmark</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="DM"><xsd:annotation><xsd:documentation xml:lang="en"> Dominica</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="DO"><xsd:annotation><xsd:documentation xml:lang="en"> Dominican Republic (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="DZ"><xsd:annotation><xsd:documentation xml:lang="en"> Algeria</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="EC"><xsd:annotation><xsd:documentation xml:lang="en"> Ecuador</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="EE"><xsd:annotation><xsd:documentation xml:lang="en"> Estonia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="EG"><xsd:annotation><xsd:documentation xml:lang="en"> Egypt</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="EH"><xsd:annotation><xsd:documentation xml:lang="en"> Western Sahara</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="ER"><xsd:annotation><xsd:documentation xml:lang="en"> Eritrea</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="ES"><xsd:annotation><xsd:documentation xml:lang="en"> Spain</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="ET"><xsd:annotation><xsd:documentation xml:lang="en"> Ethiopia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="FI"><xsd:annotation><xsd:documentation xml:lang="en"> Finland</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="FJ"><xsd:annotation><xsd:documentation xml:lang="en"> Fiji</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="FK"><xsd:annotation><xsd:documentation xml:lang="en"> Falkland Islands (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="FM"><xsd:annotation><xsd:documentation xml:lang="en"> Micronesia (Federated States of)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="FO"><xsd:annotation><xsd:documentation xml:lang="en"> Faroe Islands (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="FR"><xsd:annotation><xsd:documentation xml:lang="en"> France</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GA"><xsd:annotation><xsd:documentation xml:lang="en"> Gabon</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GB"><xsd:annotation><xsd:documentation xml:lang="en"> United Kingdom of Great Britain and Northern Ireland (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GD"><xsd:annotation><xsd:documentation xml:lang="en"> Grenada</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GE"><xsd:annotation><xsd:documentation xml:lang="en"> Georgia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GF"><xsd:annotation><xsd:documentation xml:lang="en"> French Guiana</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GG"><xsd:annotation><xsd:documentation xml:lang="en"> Guernsey</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GH"><xsd:annotation><xsd:documentation xml:lang="en"> Ghana</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GI"><xsd:annotation><xsd:documentation xml:lang="en"> Gibraltar</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GL"><xsd:annotation><xsd:documentation xml:lang="en"> Greenland</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GM"><xsd:annotation><xsd:documentation xml:lang="en"> Gambia (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GN"><xsd:annotation><xsd:documentation xml:lang="en"> Guinea</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GP"><xsd:annotation><xsd:documentation xml:lang="en"> Guadeloupe</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GQ"><xsd:annotation><xsd:documentation xml:lang="en"> Equatorial Guinea</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GR"><xsd:annotation><xsd:documentation xml:lang="en"> Greece</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GS"><xsd:annotation><xsd:documentation xml:lang="en"> South Georgia and the South Sandwich Islands</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GT"><xsd:annotation><xsd:documentation xml:lang="en"> Guatemala</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GU"><xsd:annotation><xsd:documentation xml:lang="en"> Guam</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GW"><xsd:annotation><xsd:documentation xml:lang="en"> Guinea-Bissau</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="GY"><xsd:annotation><xsd:documentation xml:lang="en"> Guyana</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="HK"><xsd:annotation><xsd:documentation xml:lang="en"> Hong Kong</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="HM"><xsd:annotation><xsd:documentation xml:lang="en"> Heard Island and McDonald Islands</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="HN"><xsd:annotation><xsd:documentation xml:lang="en"> Honduras</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="HR"><xsd:annotation><xsd:documentation xml:lang="en"> Croatia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="HT"><xsd:annotation><xsd:documentation xml:lang="en"> Haiti</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="HU"><xsd:annotation><xsd:documentation xml:lang="en"> Hungary</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="ID"><xsd:annotation><xsd:documentation xml:lang="en"> Indonesia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="IE"><xsd:annotation><xsd:documentation xml:lang="en"> Ireland</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="IL"><xsd:annotation><xsd:documentation xml:lang="en"> Israel</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="IM"><xsd:annotation><xsd:documentation xml:lang="en"> Isle of Man</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="IN"><xsd:annotation><xsd:documentation xml:lang="en"> India</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="IO"><xsd:annotation><xsd:documentation xml:lang="en"> British Indian Ocean Territory (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="IQ"><xsd:annotation><xsd:documentation xml:lang="en"> Iraq</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="IR"><xsd:annotation><xsd:documentation xml:lang="en"> Iran (Islamic Republic of)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="IS"><xsd:annotation><xsd:documentation xml:lang="en"> Iceland</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="IT"><xsd:annotation><xsd:documentation xml:lang="en"> Italy</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="JE"><xsd:annotation><xsd:documentation xml:lang="en"> Jersey</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="JM"><xsd:annotation><xsd:documentation xml:lang="en"> Jamaica</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="JO"><xsd:annotation><xsd:documentation xml:lang="en"> Jordan</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="JP"><xsd:annotation><xsd:documentation xml:lang="en"> Japan</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="KE"><xsd:annotation><xsd:documentation xml:lang="en"> Kenya</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="KG"><xsd:annotation><xsd:documentation xml:lang="en"> Kyrgyzstan</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="KH"><xsd:annotation><xsd:documentation xml:lang="en"> Cambodia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="KI"><xsd:annotation><xsd:documentation xml:lang="en"> Kiribati</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="KM"><xsd:annotation><xsd:documentation xml:lang="en"> Comoros (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="KN"><xsd:annotation><xsd:documentation xml:lang="en"> Saint Kitts and Nevis</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="KP"><xsd:annotation><xsd:documentation xml:lang="en"> Korea (the Democratic People's Republic of)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="KR"><xsd:annotation><xsd:documentation xml:lang="en"> Korea (the Republic of)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="KW"><xsd:annotation><xsd:documentation xml:lang="en"> Kuwait</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="KY"><xsd:annotation><xsd:documentation xml:lang="en"> Cayman Islands (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="KZ"><xsd:annotation><xsd:documentation xml:lang="en"> Kazakhstan</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="LA"><xsd:annotation><xsd:documentation xml:lang="en"> Lao People's Democratic Republic (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="LB"><xsd:annotation><xsd:documentation xml:lang="en"> Lebanon</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="LC"><xsd:annotation><xsd:documentation xml:lang="en"> Saint Lucia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="LI"><xsd:annotation><xsd:documentation xml:lang="en"> Liechtenstein</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="LK"><xsd:annotation><xsd:documentation xml:lang="en"> Sri Lanka</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="LR"><xsd:annotation><xsd:documentation xml:lang="en"> Liberia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="LS"><xsd:annotation><xsd:documentation xml:lang="en"> Lesotho</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="LT"><xsd:annotation><xsd:documentation xml:lang="en"> Lithuania</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="LU"><xsd:annotation><xsd:documentation xml:lang="en"> Luxembourg</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="LV"><xsd:annotation><xsd:documentation xml:lang="en"> Latvia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="LY"><xsd:annotation><xsd:documentation xml:lang="en"> Libya</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MA"><xsd:annotation><xsd:documentation xml:lang="en"> Morocco</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MC"><xsd:annotation><xsd:documentation xml:lang="en"> Monaco</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MD"><xsd:annotation><xsd:documentation xml:lang="en"> Moldova (the Republic of)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="ME"><xsd:annotation><xsd:documentation xml:lang="en"> Montenegro</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MF"><xsd:annotation><xsd:documentation xml:lang="en"> Saint Martin (French part)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MG"><xsd:annotation><xsd:documentation xml:lang="en"> Madagascar</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MH"><xsd:annotation><xsd:documentation xml:lang="en"> Marshall Islands (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MK"><xsd:annotation><xsd:documentation xml:lang="en"> North Macedonia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="ML"><xsd:annotation><xsd:documentation xml:lang="en"> Mali</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MM"><xsd:annotation><xsd:documentation xml:lang="en"> Myanmar</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MN"><xsd:annotation><xsd:documentation xml:lang="en"> Mongolia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MO"><xsd:annotation><xsd:documentation xml:lang="en"> Macao</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MP"><xsd:annotation><xsd:documentation xml:lang="en"> Northern Mariana Islands (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MQ"><xsd:annotation><xsd:documentation xml:lang="en"> Martinique</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MR"><xsd:annotation><xsd:documentation xml:lang="en"> Mauritania</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MS"><xsd:annotation><xsd:documentation xml:lang="en"> Montserrat</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MT"><xsd:annotation><xsd:documentation xml:lang="en"> Malta</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MU"><xsd:annotation><xsd:documentation xml:lang="en"> Mauritius</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MV"><xsd:annotation><xsd:documentation xml:lang="en"> Maldives</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MW"><xsd:annotation><xsd:documentation xml:lang="en"> Malawi</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MX"><xsd:annotation><xsd:documentation xml:lang="en"> Mexico</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MY"><xsd:annotation><xsd:documentation xml:lang="en"> Malaysia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="MZ"><xsd:annotation><xsd:documentation xml:lang="en"> Mozambique</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="NA"><xsd:annotation><xsd:documentation xml:lang="en"> Namibia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="NC"><xsd:annotation><xsd:documentation xml:lang="en"> New Caledonia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="NE"><xsd:annotation><xsd:documentation xml:lang="en"> Niger (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="NF"><xsd:annotation><xsd:documentation xml:lang="en"> Norfolk Island</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="NG"><xsd:annotation><xsd:documentation xml:lang="en"> Nigeria</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="NI"><xsd:annotation><xsd:documentation xml:lang="en"> Nicaragua</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="NL"><xsd:annotation><xsd:documentation xml:lang="en"> Netherlands (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="NO"><xsd:annotation><xsd:documentation xml:lang="en"> Norway</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="NP"><xsd:annotation><xsd:documentation xml:lang="en"> Nepal</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="NR"><xsd:annotation><xsd:documentation xml:lang="en"> Nauru</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="NU"><xsd:annotation><xsd:documentation xml:lang="en"> Niue</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="NZ"><xsd:annotation><xsd:documentation xml:lang="en"> New Zealand</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="OM"><xsd:annotation><xsd:documentation xml:lang="en"> Oman</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PA"><xsd:annotation><xsd:documentation xml:lang="en"> Panama</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PE"><xsd:annotation><xsd:documentation xml:lang="en"> Peru</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PF"><xsd:annotation><xsd:documentation xml:lang="en"> French Polynesia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PG"><xsd:annotation><xsd:documentation xml:lang="en"> Papua New Guinea</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PH"><xsd:annotation><xsd:documentation xml:lang="en"> Philippines (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PK"><xsd:annotation><xsd:documentation xml:lang="en"> Pakistan</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PL"><xsd:annotation><xsd:documentation xml:lang="en"> Poland</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PM"><xsd:annotation><xsd:documentation xml:lang="en"> Saint Pierre and Miquelon</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PN"><xsd:annotation><xsd:documentation xml:lang="en"> Pitcairn</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PR"><xsd:annotation><xsd:documentation xml:lang="en"> Puerto Rico</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PS"><xsd:annotation><xsd:documentation xml:lang="en"> Palestine, State of</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PT"><xsd:annotation><xsd:documentation xml:lang="en"> Portugal</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PW"><xsd:annotation><xsd:documentation xml:lang="en"> Palau</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="PY"><xsd:annotation><xsd:documentation xml:lang="en"> Paraguay</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="QA"><xsd:annotation><xsd:documentation xml:lang="en"> Qatar</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="RE"><xsd:annotation><xsd:documentation xml:lang="en"> Réunion</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="RO"><xsd:annotation><xsd:documentation xml:lang="en"> Romania</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="RS"><xsd:annotation><xsd:documentation xml:lang="en"> Serbia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="RU"><xsd:annotation><xsd:documentation xml:lang="en"> Russian Federation (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="RW"><xsd:annotation><xsd:documentation xml:lang="en"> Rwanda</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SA"><xsd:annotation><xsd:documentation xml:lang="en"> Saudi Arabia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SB"><xsd:annotation><xsd:documentation xml:lang="en"> Solomon Islands</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SC"><xsd:annotation><xsd:documentation xml:lang="en"> Seychelles</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SD"><xsd:annotation><xsd:documentation xml:lang="en"> Sudan (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SE"><xsd:annotation><xsd:documentation xml:lang="en"> Sweden</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SG"><xsd:annotation><xsd:documentation xml:lang="en"> Singapore</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SH"><xsd:annotation><xsd:documentation xml:lang="en"> Saint Helena, Ascension and Tristan da Cunha</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SI"><xsd:annotation><xsd:documentation xml:lang="en"> Slovenia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SJ"><xsd:annotation><xsd:documentation xml:lang="en"> Svalbard</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SK"><xsd:annotation><xsd:documentation xml:lang="en"> Slovakia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SL"><xsd:annotation><xsd:documentation xml:lang="en"> Sierra Leone</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SM"><xsd:annotation><xsd:documentation xml:lang="en"> San Marino</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SN"><xsd:annotation><xsd:documentation xml:lang="en"> Senegal</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SO"><xsd:annotation><xsd:documentation xml:lang="en"> Somalia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SR"><xsd:annotation><xsd:documentation xml:lang="en"> Suriname</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SS"><xsd:annotation><xsd:documentation xml:lang="en"> South Sudan</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="ST"><xsd:annotation><xsd:documentation xml:lang="en"> Sao Tome and Principe</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SV"><xsd:annotation><xsd:documentation xml:lang="en"> El Salvador</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SX"><xsd:annotation><xsd:documentation xml:lang="en"> Sint Maarten (Dutch part)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SY"><xsd:annotation><xsd:documentation xml:lang="en"> Syrian Arab Republic (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="SZ"><xsd:annotation><xsd:documentation xml:lang="en"> Eswatini</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TC"><xsd:annotation><xsd:documentation xml:lang="en"> Turks and Caicos Islands (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TD"><xsd:annotation><xsd:documentation xml:lang="en"> Chad</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TF"><xsd:annotation><xsd:documentation xml:lang="en"> French Southern Territories (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TG"><xsd:annotation><xsd:documentation xml:lang="en"> Togo</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TH"><xsd:annotation><xsd:documentation xml:lang="en"> Thailand</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TJ"><xsd:annotation><xsd:documentation xml:lang="en"> Tajikistan</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TK"><xsd:annotation><xsd:documentation xml:lang="en"> Tokelau</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TL"><xsd:annotation><xsd:documentation xml:lang="en"> Timor-Leste</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TM"><xsd:annotation><xsd:documentation xml:lang="en"> Turkmenistan</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TN"><xsd:annotation><xsd:documentation xml:lang="en"> Tunisia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TO"><xsd:annotation><xsd:documentation xml:lang="en"> Tonga</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TR"><xsd:annotation><xsd:documentation xml:lang="en"> Turkey</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TT"><xsd:annotation><xsd:documentation xml:lang="en"> Trinidad and Tobago</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TV"><xsd:annotation><xsd:documentation xml:lang="en"> Tuvalu</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TW"><xsd:annotation><xsd:documentation xml:lang="en"> Taiwan (Province of China)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="TZ"><xsd:annotation><xsd:documentation xml:lang="en"> Tanzania, the United Republic of</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="UA"><xsd:annotation><xsd:documentation xml:lang="en"> Ukraine</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="UG"><xsd:annotation><xsd:documentation xml:lang="en"> Uganda</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="UM"><xsd:annotation><xsd:documentation xml:lang="en"> United States Minor Outlying Islands (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="US"><xsd:annotation><xsd:documentation xml:lang="en"> United States of America (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="UY"><xsd:annotation><xsd:documentation xml:lang="en"> Uruguay</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="UZ"><xsd:annotation><xsd:documentation xml:lang="en"> Uzbekistan</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="VA"><xsd:annotation><xsd:documentation xml:lang="en"> Holy See (the)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="VC"><xsd:annotation><xsd:documentation xml:lang="en"> Saint Vincent and the Grenadines</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="VE"><xsd:annotation><xsd:documentation xml:lang="en"> Venezuela (Bolivarian Republic of)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="VG"><xsd:annotation><xsd:documentation xml:lang="en"> Virgin Islands (British)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="VI"><xsd:annotation><xsd:documentation xml:lang="en"> Virgin Islands (U.S.)</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="VN"><xsd:annotation><xsd:documentation xml:lang="en"> Viet Nam</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="VU"><xsd:annotation><xsd:documentation xml:lang="en"> Vanuatu</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="WF"><xsd:annotation><xsd:documentation xml:lang="en"> Wallis and Futuna</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="WS"><xsd:annotation><xsd:documentation xml:lang="en"> Samoa</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="YE"><xsd:annotation><xsd:documentation xml:lang="en"> Yemen</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="YT"><xsd:annotation><xsd:documentation xml:lang="en"> Mayotte</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="ZA"><xsd:annotation><xsd:documentation xml:lang="en"> South Africa</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="ZM"><xsd:annotation><xsd:documentation xml:lang="en"> Zambia</xsd:documentation></xsd:annotation></xsd:enumeration>
+                <xsd:enumeration value="ZW"><xsd:annotation><xsd:documentation xml:lang="en"> Zimbabwe</xsd:documentation></xsd:annotation></xsd:enumeration>
+            
+            </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSUseCase">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Highway" />
+            <xsd:enumeration value="Urban" />
+            <xsd:enumeration value="InterUrban" />
+            <xsd:enumeration value="Parking" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSScenarioType"> <xsd:annotation><xsd:documentation xml:lang="en">Uses the descriptive terms proposed by the PEGASUS project</xsd:documentation></xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Logical"><xsd:annotation><xsd:documentation xml:lang="en">Precise scenario description using technical format, but with some aspectes undefined (e.g. a vehicle may be allowed a range of speeds)</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="Concrete"><xsd:annotation><xsd:documentation xml:lang="en">Fully defined description of a scenario</xsd:documentation></xsd:annotation></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSExposure">
+        <xsd:annotation><xsd:documentation xml:lang="en">
+            Follows ISO 26262 definitions for exposure.
+            Also see WISE Drive, from University of Waterloo, Canada.
+            https://uwaterloo.ca/waterloo-intelligent-systems-engineering-lab/projects/wise-drive-requirements-analysis-framework-automated-driving
+        </xsd:documentation></xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="E1">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Events that occur very rarely
+                </xsd:documentation></xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="E2" />
+            <xsd:enumeration value="E3" />
+            <xsd:enumeration value="E4">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Events that occur most of the time when operating a vehicle
+                </xsd:documentation></xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSSituationDemand">
+        <xsd:annotation><xsd:documentation xml:lang="en">
+            Indicates the "difficulty" of the scenario.
+            See WISE Drive, from University of Waterloo, Canada
+            Operational Design Domain for Automated Driving Systems:
+                Taxonomy of Basic Terms
+            https://uwaterloo.ca/waterloo-intelligent-systems-engineering-lab/projects/wise-drive-requirements-analysis-framework-automated-driving
+        </xsd:documentation></xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Low" />
+            <xsd:enumeration value="Medium" />
+            <xsd:enumeration value="High" />
+            <xsd:enumeration value="VeryHigh" />
+            <xsd:enumeration value="Extreme" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSCollisionCategory">
+        <xsd:annotation><xsd:documentation xml:lang="en">
+            See WISE Drive, from University of Waterloo, Canada
+            Operational Design Domain for Automated Driving Systems:
+                Taxonomy of Basic Terms
+            https://uwaterloo.ca/waterloo-intelligent-systems-engineering-lab/projects/wise-drive-requirements-analysis-framework-automated-driving
+        </xsd:documentation></xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Collision">       <xsd:annotation><xsd:documentation xml:lang="en">A crash cannot be avoided</xsd:documentation></xsd:annotation> </xsd:enumeration>
+            <xsd:enumeration value="NearCollision">   <xsd:annotation><xsd:documentation xml:lang="en">A crash will be imminent (at some point in the scenario) but can still be avoided</xsd:documentation></xsd:annotation> </xsd:enumeration>
+            <xsd:enumeration value="NormalDriving">   <xsd:annotation><xsd:documentation xml:lang="en">Any situation which is not Collision or NearCollision</xsd:documentation></xsd:annotation> </xsd:enumeration>
+            <!-- <xsd:enumeration value="Fallback" />
+                Leaving out the "Fallback" category (scenarios where the ego vehicle
+                is about to depart its ODD) for now, as it assumes scenarios are only
+                used for a single, specified ODD -->
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSSpeedLimit">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="SlowUrban">   <xsd:annotation><xsd:documentation xml:lang="en">0  to 34.99 kmh  /  0    to 21.8 mph </xsd:documentation></xsd:annotation> </xsd:enumeration>
+            <xsd:enumeration value="Urban">       <xsd:annotation><xsd:documentation xml:lang="en">35 to 59.99 kmh  /  21.8 to 37.3 mph </xsd:documentation></xsd:annotation> </xsd:enumeration>
+            <xsd:enumeration value="FastUrban">   <xsd:annotation><xsd:documentation xml:lang="en">60 to 74.99 kmh  /  37.3 to 46.6 mph </xsd:documentation></xsd:annotation> </xsd:enumeration>
+            <xsd:enumeration value="TrunkRoad">   <xsd:annotation><xsd:documentation xml:lang="en">75 to 99.99 kmh  /  46.6 to 62.1 mph </xsd:documentation></xsd:annotation> </xsd:enumeration>
+            <xsd:enumeration value="Highway">     <xsd:annotation><xsd:documentation xml:lang="en">100+ kmh         /  62.1+ mph </xsd:documentation></xsd:annotation> </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSADASFeature">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ABS">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Anti-lock Braking System
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="ACC">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Adaptive Cruise Control
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="AEB">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Autonomous Emergency Braking
+                    Low Speed Collision Avoidance Systems
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="AFL">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Adaptive Front Lights
+                    also known as: AFLS, Advanced Front Lighting Systems
+                                   Adaptive Headlights
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="ALKS">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Automatic lane keeping system (designed for 'hands off' use)
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="BSM">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Blind Spot Monitoring
+                    also known as: BSW, Blind Spot Warning
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="CSW">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Curve Speed Warning
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="CWS">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Collision Warning System
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="DMS">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Driver Monitoring System
+                    also known as: Drowsiness Alert
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="DPP">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Dynamic Pass Predictor
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="ESC">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Electronic Stability Control
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="FCW">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Forward Collision Warning
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="HUD">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Heads Up Display
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="ISA">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Intelligent Speed Adaptation
+                    also known as: Intelligent Speed Assist
+                                   HSA, High Speed Alert
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+<!--        <xsd:enumeration value="LCA">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Lane Change Assist
+                      - not included, as sub-types LKA and LDW are more specific
+                </xsd:documentation></xsd:annotation></xsd:enumeration> -->
+            <xsd:enumeration value="LDW">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Lane Departure Warning
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="LKA">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Lane Keep Assist
+                    also known as: LKAS, Lane Keep Assist System
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="NVS">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Night Vision System
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="PA">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Park Assist
+                    also known as: IPA, Intelligent Park Assist
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="PDS">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Pedestrian Detection System
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="TPMS">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Tire Pressure Monitoring System
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="TSR">
+                <xsd:annotation><xsd:documentation xml:lang="en">
+                    Traffic Sign Recognition
+                    also known as: RSR, Road Sign Recognition
+                </xsd:documentation></xsd:annotation></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSModelDetailLevel">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="BoundingBox" > <xsd:annotation><xsd:documentation xml:lang="en">Scenery file provides bounding boxes for objects only. Suitable for providing restricted sightlines only</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="LowPoly" > <xsd:annotation><xsd:documentation xml:lang="en">Majority of objects use (or may conditionally use) a relatively small number of polygons. Suitable for real time or faster rendering</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="HighPoly"> <xsd:annotation><xsd:documentation xml:lang="en">Majority of objects use (or may conditionally use) a relatively large number of polygons. May not be suitable for real time or faster rendering</xsd:documentation></xsd:annotation></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSTargetSensors">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="CameraRealistic"> <xsd:annotation><xsd:documentation xml:lang="en">Suitable for use in perception tests of camera based systems</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="LidarRealistic"> <xsd:annotation><xsd:documentation xml:lang="en">Suitable for use in perception tests of LIDAR based systems</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="RadarRealistic"> <xsd:annotation><xsd:documentation xml:lang="en">Suitable for use in perception tests of RADAR based systems</xsd:documentation></xsd:annotation></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSRoadFeature">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Roundabout" />
+            <xsd:enumeration value="HighwayEntranceRamp" > <xsd:annotation><xsd:documentation xml:lang="en">AKA slip road, on-ramp</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="HighwayExitRamp" > <xsd:annotation><xsd:documentation xml:lang="en">AKA slip road, off-ramp</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="TrafficLightControlledJunction" />
+            <xsd:enumeration value="3LegJunction" > <xsd:annotation><xsd:documentation xml:lang="en">Often a T-Junction</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="4LegJunction" />
+            <xsd:enumeration value="MoreThan4LegJunction" />
+
+            <xsd:enumeration value="RailwayCrossing" />
+            <xsd:enumeration value="PedestrianCrossing" />
+
+            <xsd:enumeration value="StopSign" />
+            <xsd:enumeration value="GiveWaySign" >  <xsd:annotation><xsd:documentation xml:lang="en">AKA yield sign</xsd:documentation></xsd:annotation></xsd:enumeration>
+
+            <xsd:enumeration value="1Lane" >  <xsd:annotation><xsd:documentation xml:lang="en">Number of lanes in the direction of travel. Include shared lanes (e.g. central overtaking lane with equal priority)</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="2Lane" />
+            <xsd:enumeration value="3Lane" />
+            <xsd:enumeration value="4Lane" />
+            <xsd:enumeration value="MoreThan4Lanes" />
+            <xsd:enumeration value="CentralLaneSharedWithOncomingTraffic"> <xsd:annotation><xsd:documentation xml:lang="en">One or more lanes is shared with oncoming traffic (e.g. single track road, rural road with central overtaking lane available to both directions). Does not include tidal flow lanes controlled by signals</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="DividedCarriageway" >  <xsd:annotation><xsd:documentation xml:lang="en">Implies a physical median, AKA a central reservation</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="OneWayRoad" />
+            <xsd:enumeration value="BicycleLane" />
+
+            <xsd:enumeration value="HardShoulderPresent"> <xsd:annotation><xsd:documentation xml:lane="en">Wide enough for normal size vehicles to stop without any part being in a running lane</xsd:documentation></xsd:annotation> </xsd:enumeration>
+            <xsd:enumeration value="HighGradient" />
+            <xsd:enumeration value="SharpBend" />
+            <xsd:enumeration value="Roadworks" />
+            <xsd:enumeration value="Tunnel" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSEnvironmentalCondition">
+        <xsd:restriction base="xsd:string">
+            <!-- Weather -->
+            <xsd:enumeration value="Rain" />
+            <xsd:enumeration value="NoRainButRoadWet" />
+            <xsd:enumeration value="Snow" />
+            <xsd:enumeration value="Ice" />
+            <xsd:enumeration value="Fog" />
+            <xsd:enumeration value="Cloudy" />
+            <!-- Time-of-day -->
+            <xsd:enumeration value="Daylight" />
+            <xsd:enumeration value="Night" />
+            <xsd:enumeration value="Dawn" />
+            <xsd:enumeration value="Dusk" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSVehicleType">
+        <xsd:annotation><xsd:documentation xml:lang="en">Type codes from UNECE Consolidated Resolution on the Construction of Vehicles (R.E.3), Revision 6, plus a few MUSICC-specific extensions</xsd:documentation></xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="L1" > <xsd:annotation><xsd:documentation xml:lang="en">[Moped] A two-wheeled vehicle with an engine cylinder capacity in the case of a thermic engine not exceeding 50 cm³ and whatever the means of propulsion a maximum design speed not exceeding 50 km/h.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="L2" > <xsd:annotation><xsd:documentation xml:lang="en">[Low power tricycle] A three-wheeled vehicle of any wheel arrangement with an engine cylinder capacity in the case of a thermic engine not exceeding 50 cm³ and whatever the means of propulsion a maximum design speed not exceeding 50 km/h.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="L3" > <xsd:annotation><xsd:documentation xml:lang="en">[Motorbike] A two-wheeled vehicle with an engine cylinder capacity in the case of a thermic engine exceeding 50 cm³ or whatever the means of propulsion a maximum design speed exceeding 50 km/h.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="L4" > <xsd:annotation><xsd:documentation xml:lang="en">[Motorbike with side car] A vehicle with three wheels asymmetrically arranged in relation to the longitudinal median plane with an engine cylinder capacity in the case of a thermic engine exceeding 50 cm³ or whatever the means of propulsion a maximum design speed exceeding 50 km/h.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="L5" > <xsd:annotation><xsd:documentation xml:lang="en">[Fast Tricycle] A vehicle with three wheels symmetrically arranged in relation to the longitudinal median plane with an engine cylinder capacity in the case of a thermic engine exceeding 50 cm³ or whatever the means of propulsion a maximum design speed exceeding 50 km/h.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="L6" > <xsd:annotation><xsd:documentation xml:lang="en">[Light quadricycle] A vehicle with four wheels whose unladen mass is not more than 350 kg, not including the mass of the batteries in case of electric vehicles, whose maximum design speed is not more than 45 km/h, and whose engine cylinder capacity does not exceed 50 cm³ for spark (positive) ignition engines, or whose maximum net power output does not exceed 4 kW in the case of other internal combustion engines, or whose maximum continuous rated power does not exceed 4 kW in the case of electric engines.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="L7" > <xsd:annotation><xsd:documentation xml:lang="en">[Heavy quadricycle] A vehicle with four wheels, other than that classified for the category L6, whose unladen mass is not more than 400 kg (550 kg for vehicles intended for carrying goods), not including the mass of batteries in the case of electric vehicles and whose maximum continuous rated power does not exceed 15 kW.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="M1" > <xsd:annotation><xsd:documentation xml:lang="en">[Car] Vehicles used for carriage of passengers, comprising not more than eight seats in addition to the driver's = 9.(up to eg: London Cab / E7 Type Vehicle 8 seat + Driver.)</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="M2" > <xsd:annotation><xsd:documentation xml:lang="en">[Minibus] Vehicles used for the carriage of passengers, comprising more than eight seats in addition to the driver's seat, and having a maximum mass not exceeding 5 tonnes.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="M3" > <xsd:annotation><xsd:documentation xml:lang="en">[Bus] Vehicles used for the carriage of passengers, comprising more than eight seats in addition to the driver's seat, and having a maximum mass exceeding 5 tonnes.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="N1" > <xsd:annotation><xsd:documentation xml:lang="en">[Pick-up Truck, Van] Vehicles used for the carriage of goods and having a maximum mass not exceeding 3.5 tonnes. </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="N2" > <xsd:annotation><xsd:documentation xml:lang="en">[Small Truck] used for the carriage of goods and having a maximum mass exceeding 3.5 tonnes but not exceeding 12 tonnes.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="N3" > <xsd:annotation><xsd:documentation xml:lang="en">[Large truck] Vehicles used for the carriage of goods and having a maximum mass exceeding 12 tonnes.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="O1" > <xsd:annotation><xsd:documentation xml:lang="en">Trailers with a maximum mass not exceeding 0.75 tonnes.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="O2" > <xsd:annotation><xsd:documentation xml:lang="en">Trailers with a maximum mass exceeding 0.75 tonnes, but not exceeding 3.5 tonnes.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="O3" > <xsd:annotation><xsd:documentation xml:lang="en">Trailers with a maximum mass exceeding 3.5 tonnes, but not exceeding 10 tonnes.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="O4" > <xsd:annotation><xsd:documentation xml:lang="en">Trailers with a maximum mass exceeding 10 tonnes.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="T" > <xsd:annotation><xsd:documentation xml:lang="en">Agricultural and Forestry tractor</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="G" > <xsd:annotation><xsd:documentation xml:lang="en">Off-road vehicles</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="SA" > <xsd:annotation><xsd:documentation xml:lang="en">Motor caravan</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="SB" > <xsd:annotation><xsd:documentation xml:lang="en">Armoured vehicle</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="SC" > <xsd:annotation><xsd:documentation xml:lang="en">Ambulance</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="SD" > <xsd:annotation><xsd:documentation xml:lang="en">Hearse</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="NRMM" > <xsd:annotation><xsd:documentation xml:lang="en">Non-road mobile machinery</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="SPV" > <xsd:annotation><xsd:documentation xml:lang="en">Special purpose vehicle. A vehicle of category M, N or O for conveying passengers or goods and for performing a special function for which special body arrangements and/or equipment are necessary.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="POD"> <xsd:annotation><xsd:documentation xml:lang="en">Low-speed passenger carrying pod</xsd:documentation></xsd:annotation></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSEgoManeuverType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="RightTurn" />
+            <xsd:enumeration value="LeftTurn" />
+            <xsd:enumeration value="GoStraightAtJunction" />
+            <xsd:enumeration value="CrossTrafficTurn" > <xsd:annotation><xsd:documentation xml:lang="en">Left turn in countries that drive on the right</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="WithTrafficTurn" > <xsd:annotation><xsd:documentation xml:lang="en">Right turn in countries that drive on the right</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="UTurn" />
+            <xsd:enumeration value="TurnOntoMinorRoad" />
+            <xsd:enumeration value="TurnOntoMajorRoad" />
+            <xsd:enumeration value="HighwayMerge" />
+            <xsd:enumeration value="HighwayExit" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSKeyActorType">
+        <xsd:annotation><xsd:documentation xml:lang="en">
+            See WISE Drive, from University of Waterloo, Canada
+            Operational World Model Ontology for Automated Driving Systems
+                Part 2: Road Users, Animals, Other Obstacles, and Environmental Conditions
+            https://uwaterloo.ca/waterloo-intelligent-systems-engineering-lab/projects/wise-drive-requirements-analysis-framework-automated-driving
+        </xsd:documentation></xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="PassengerCar" />
+            <xsd:enumeration value="Truck" />
+            <xsd:enumeration value="Bus" />
+            <xsd:enumeration value="Motorcycle" />
+            <xsd:enumeration value="SmallLowSpeedVehicle" />
+            <xsd:enumeration value="EmergencyVehicle" />
+            <xsd:enumeration value="PedalCycle" />
+            <xsd:enumeration value="Trailer" />
+            <xsd:enumeration value="MotorizedOffRoadVehicle" />
+            <xsd:enumeration value="AnimalDrawnVehicle" />
+            <xsd:enumeration value="RailedVehicle" />
+            <xsd:enumeration value="RailRoadVehicle" />
+            <xsd:enumeration value="AnimalRider" />
+            <xsd:enumeration value="Pedestrian" />
+            <xsd:enumeration value="TrafficControlPerson" />
+            <!-- Extra categories not part of WISE Drive -->
+            <xsd:enumeration value="Animal" />
+            <xsd:enumeration value="InanimateObstacle" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSKeyActorAction">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ActorCrossingRoad" />
+            <xsd:enumeration value="ActorStoppedInRoad" />
+            <xsd:enumeration value="EmergencyStop" />
+            <xsd:enumeration value="CutIn" />
+            <xsd:enumeration value="Overtake" />
+            <xsd:enumeration value="WrongWayTravel" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSRuleSet">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="RSSReasonableBehaviour"> <xsd:annotation><xsd:documentation xml:lang="en">An actor does not comply with 'reasonable beahviour' as defined by by Intel Mobileye Responsibility Sensitive Safety</xsd:documentation></xsd:annotation> </xsd:enumeration>
+            <xsd:enumeration value="NationalAdvice"> <xsd:annotation><xsd:documentation xml:lang="en">An actor does not comply with official advice to drivers in the country of the scenario e.g. the UK highway code</xsd:documentation></xsd:annotation> </xsd:enumeration>
+            <xsd:enumeration value="NationalLaws"> <xsd:annotation><xsd:documentation xml:lang="en">An actor breaks a specific, well defined, law (e.g. breaking the speed limit, but not careless driving)</xsd:documentation></xsd:annotation> </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSTrafficDensity">
+        <xsd:annotation><xsd:documentation xml:lang="en">
+            The intention of the traffic density is to represent the maximum density section
+            encountered by the ego vehicle during the scenario.
+            https://en.wikipedia.org/wiki/Traffic_flow#Overview
+        </xsd:documentation></xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="EgoOnly">       <xsd:annotation><xsd:documentation xml:lang="en">Scenario only contains the ego vehicle, no other vehicles</xsd:documentation></xsd:annotation></xsd:enumeration>            
+            <xsd:enumeration value="Low" >          <xsd:annotation><xsd:documentation xml:lang="en">one or two other vehicles in scenario </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="FreeFlow" >     <xsd:annotation><xsd:documentation xml:lang="en">2 to 11.99 vehicles/mile/lane </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="MaxStable" >    <xsd:annotation><xsd:documentation xml:lang="en">12 to 29.99 vehicles/mile/lane </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="Unstable" >     <xsd:annotation><xsd:documentation xml:lang="en">30 to 64.99 vehicles/mile/lane </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="StopStart" >    <xsd:annotation><xsd:documentation xml:lang="en">65 to 150 vehicles/mile/lane </xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="Jam" >          <xsd:annotation><xsd:documentation xml:lang="en">150+ vehicles/mile/lane </xsd:documentation></xsd:annotation></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MUSTrafficAverageSpeed">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Stationary" >       <xsd:annotation><xsd:documentation xml:lang="en">Strictly zero kmh</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="Walking" >          <xsd:annotation><xsd:documentation xml:lang="en">0.000001 to 6.99 kmh</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="FastTrafficJam" >   <xsd:annotation><xsd:documentation xml:lang="en"> 7 kmh to 29.99 kmh  (30 kph = 19 mph</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="UrbanFlowing" >     <xsd:annotation><xsd:documentation xml:lang="en">30 kmh to 59.99 kmh  (60 kph = 37 mph)</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="TrunkFlowing" >     <xsd:annotation><xsd:documentation xml:lang="en">60 kmh to 99.99 kmh  (100 kph = 62 mph)</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="HighwayFlowing" >   <xsd:annotation><xsd:documentation xml:lang="en">100+ kmh</xsd:documentation></xsd:annotation></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="MUSEntityUnderTest">
+        <xsd:sequence>
+            <xsd:element name="EntityRef">
+                <xsd:complexType>
+                    <xsd:attribute name="entityRef" type="xsd:string" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GoalPosition" type="MUSPosition"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- Duplicated from OpenSCENARIO_TypeDefs.xsd, with some elements removed -->
+    <xsd:complexType name="MUSPosition">
+        <xsd:choice>
+            <xsd:element name="World">
+                <xsd:complexType>
+                    <xsd:attribute name="x"  type="xsd:double" use="required"/>
+                    <xsd:attribute name="y"  type="xsd:double" use="required"/>
+                    <xsd:attribute name="z"  type="xsd:double" use="optional"/>
+                    <xsd:attribute name="h"  type="xsd:double" use="optional"/>
+                    <xsd:attribute name="p"  type="xsd:double" use="optional"/>
+                    <xsd:attribute name="r"  type="xsd:double" use="optional"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Road">
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element name="Orientation" type="OSCOrientation" minOccurs="0"/>
+                    </xsd:all>
+                    <xsd:attribute name="roadId"    type="xsd:string" use="required"/>
+                    <xsd:attribute name="s"         type="xsd:double" use="required"/>
+                    <xsd:attribute name="t"         type="xsd:double" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Lane">
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element name="Orientation" type="OSCOrientation" minOccurs="0"/>
+                    </xsd:all>
+                    <xsd:attribute name="roadId"    type="xsd:string" use="required"/>
+                    <xsd:attribute name="laneId"    type="xsd:int" use="required"/>
+                    <xsd:attribute name="offset"    type="xsd:double" use="optional"/>
+                    <xsd:attribute name="s"         type="xsd:double" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:choice>
+    </xsd:complexType>
+
+    <!-- Duplicated from OpenSCENARIO_TypeDefs.xsd -->
+    <xsd:complexType name="OSCOrientation">
+        <xsd:attribute name="type"  type="Enum_Orientation_type" use="optional"/>
+        <xsd:attribute name="h"     type="xsd:double" use="optional"/>
+        <xsd:attribute name="p"     type="xsd:double" use="optional"/>
+        <xsd:attribute name="r"     type="xsd:double" use="optional"/>
+    </xsd:complexType>
+    <xsd:simpleType name="Enum_Orientation_type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="relative" />
+            <xsd:enumeration value="absolute" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- Section aligned with PEGASUS logical scenario format, for partial compatability -->
+    <xsd:complexType name="MUSParameterStochastics">
+        <xsd:annotation><xsd:documentation xml:lang="en">
+            This type is closely aligned with the PEGASUS format for logical scenarios,
+            and the "parameterSpace" element from their XML schema. However, parameter 
+			dependencies are not supported, and a smaller range of distribution types are
+			supported, meaning there is only partial compatability with the PEGASUS schema.
+        </xsd:documentation></xsd:annotation>
+        <xsd:all>
+            <xsd:element name ="RoadNetwork">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ParameterGroup" type="MUSParameterGroup" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name ="OpenScenario">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ParameterGroup" type="MUSParameterGroup" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="MUSParameterGroup">
+        <xsd:sequence>
+            <xsd:element name="Parameter" minOccurs="0" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element name="Distribution">
+                            <xsd:complexType>
+                                <xsd:all>
+                                    <xsd:element ref="Choice_Distribution"/>
+                                </xsd:all>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:all>
+                    <xsd:attribute name="name" type="xsd:string" use="required"/>
+                    <xsd:attribute name="unit" type="xsd:string" use="required"/>
+                    <xsd:attribute name="type" type="enum_type" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:element name="Choice_Distribution" abstract="true"/>
+    <xsd:element name="UniformDistribution" substitutionGroup="Choice_Distribution">
+        <xsd:complexType>
+            <xsd:attribute name="lowerLimit" type="xsd:double" use="required"/>
+            <xsd:attribute name="upperLimit" type="xsd:double" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="NormalDistribution" substitutionGroup="Choice_Distribution">
+        <xsd:complexType>
+            <xsd:attribute name="expectedValue" type="xsd:double" use="required"/>
+            <xsd:attribute name="variance" type="xsd:double" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="SingleValues" substitutionGroup="Choice_Distribution">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element ref="Choice_Sequence_List"/>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="Choice_Sequence_List" abstract="true"/>
+
+    <xsd:element name="List" substitutionGroup="Choice_Sequence_List">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="ListElement" minOccurs="1" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:attribute name="value" type="xsd:anySimpleType" use="required"/>
+                        <xsd:attribute name="label" type="xsd:string" use="optional"/>
+                        <xsd:attribute name="probabilityOfOccurence" use="optional">
+                            <xsd:annotation><xsd:documentation xml:lang="en">Sum of probabilities should be less than or equal to 1. If  less than 1, remaining probability space will be shared equally between list items without a specified probability. If none exist, it will be allocated to default parameter value.</xsd:documentation></xsd:annotation>
+                            <xsd:simpleType>
+                                <xsd:restriction base="xsd:decimal">
+                                    <xsd:minInclusive value="0"/>
+                                    <xsd:maxInclusive value="1"/>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:attribute>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:simpleType name="enum_type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="string" />
+            <xsd:enumeration value="double" />
+            <xsd:enumeration value="int" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- End of section aligned with PEGASUS logical scenario format -->
+
+</xsd:schema>

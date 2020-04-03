@@ -1,0 +1,9 @@
+[report]
+omit =
+    **/tests/**
+    **/migrations/**
+    **/settings/**
+    **/management/**
+    **/urls.py
+    **/wsgi.py
+    **/manage.py

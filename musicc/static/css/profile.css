@@ -1,0 +1,8 @@
+#submission-form {
+    border: black 1px solid;
+    margin: 20px;
+}
+
+#submission-form > *, #zip_file_upload_form > * {
+    margin-bottom: 20px;
+}

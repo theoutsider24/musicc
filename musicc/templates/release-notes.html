@@ -1,0 +1,377 @@
+<!-- # MUSICC - Multi User Scenario Catalogue for Connected and Autonomous Vehicles
+# Copyright (C)2020 Connected Places Catapult
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: musicc-support@cp.catapult.org.uk
+#          https://cp.catapult.org.uk/case-studies/musicc/'
+#
+-->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div>
+    <h1>Version 1.0.0 - April 03, 2020</h1>
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>New user sign up.
+        </li>
+        <li>Public Docker image added to Docker hub.
+        </li>
+        <li>Support for MUSICC SDL revision 1.0.0 supporting OpenSCENARIO version 1.0.
+        </li>
+        <li>Open source software available on public Gitlab.
+        </li>
+    </ul>
+    <h2> Resolved Bugs
+    </h2>
+    <ul>
+        <li>Email server error fixed.
+        </li>
+        <li>Element mapping for OpenSCENARIO 1.0 bug fix.
+        </li>
+    </ul>
+    <h2> Technical Tasks
+    </h2>
+    <ul>
+        <li>Updated documentation for Gitlab repository and Docker.
+        </li>
+        <li>Migration added for 0.1.4 MUSICC file.
+        </li>
+    </ul>
+    <h1>Version 0.3.6 - March 20, 2020</h1>
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>Support for OpenSCENARIO 1.0.
+        </li>
+    </ul>
+    <h2> Resolved Bugs
+    </h2>
+    <ul>
+        <li>Email server error fixed. 
+        </li>
+    </ul>
+    <h2> Technical Tasks
+    </h2>
+    <ul>
+        <li>Include CPC Data Protection Policy.
+        </li>
+        <li>Users can now agree to MUSICC T&Cs. Foundations laid for new user signup functionality.
+        </li>
+    </ul>
+    <h1>Version 0.3.5 - February 21, 2020</h1>
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>Release revision 1.4 of the SDL, which now explicitly defines which object is the system-under-test (ego vehicle), updates the format for the ego goal position to align better with OpenSCENARIO 1.0, and supports weighting of scenarios within a test programme.
+        </li>
+    </ul>
+    <h2> Resolved Bugs
+    </h2>
+    <ul>
+        <li>Fixed ordering of columns on ID.
+        </li>
+        <li>Release a version of OpenSCENARIO 0.9.1 with a minor bugfix for parameters, needed to support a new MUSICC scenario.
+        </li>
+    </ul>
+    <h2> Technical Tasks
+    </h2>
+    <ul>
+        <li>Updated copyright to 2020 Connected Places Catapult. All rights reserved.
+        </li>
+        <li>Updated link to more information on MUSICC in about-us.
+        </li>
+    </ul>
+
+    <h1>Version 0.3.4 - December 17, 2019</h1>
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>Made MUSICC_ID column enabled by default and re-ordered sidebar
+        </li>
+    </ul>
+
+    <h1>Version 0.3.3 - November 19, 2019</h1>
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>Users can now reset their passwords
+        </li>
+        <li>Scenarios can be searched by their osc, odr or MUSICC ids
+        </li>
+        <li>File size estimates now give a more accurate breakdown
+        </li>
+        <li>Images and resources can be excluded from downloads
+        </li>
+    </ul>
+
+    <h2> Resolved Bugs
+    </h2>
+    <ul>
+        <li>Improvements to download speeds and local instance synchronisations
+        </li>
+    </ul>
+
+    <h1>Version 0.3.2 - October 11, 2019</h1>
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>Unapproved changes can now be downloaded for review
+        </li>
+    </ul>
+
+    <h2> Resolved Bugs
+    </h2>
+    <ul>
+        <li>Query autocompletion will more intelligently include quotes where necessary
+        </li>
+        <li>Multiple fixes regarding scenario randomisation
+        </li>
+    </ul>
+
+
+    <h1>Version 0.3.1 - September 06, 2019</h1>
+        
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>Extra 'resource' files can now be uploaded with musicc files
+        </li>
+    </ul>  
+
+    <h2> Resolved Bugs
+    </h2>
+    <ul>
+        <li>Improvements in identification of catalogs
+        </li>
+        <li>Improvements in seach bar suggestion behaviour
+        </li>
+    </ul>
+
+    <h1>Version 0.3.0 - August 13, 2019</h1>
+        
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>Notifications have been added to let users know when there are relevant changes eg. when there's activity on a favourited scenario or a new revision is activated
+        </li>
+        <li>Local MUSICC instances can now be registered to user accounts and perform one-way synchronisations
+        </li>
+    </ul>           
+        
+    <h1>Version 0.2.6 - July 26, 2019</h1>
+        
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>Existing user tags will be suggested as you type new tags
+        </li>
+        <li>Details screen can be accessed by clicking on MUSICC entries in submission summaries
+        </li>
+        <li>Selecting a search suggestion now automatically suggests the next search term
+        </li>
+    </ul>           
+
+    <h1>Version 0.2.5 - July 12, 2019</h1>
+
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li> Added context-aware search suggestions
+        </li>
+        <li>Users can now submit scenarios to the database and track the approval process of their submissions
+        </li>
+        <li>A four-eyes approval process has been added for scenario creation
+        </li>
+    </ul>
+
+    <h1>Version 0.2.4 - June 28, 2019</h1>
+
+
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>Multiple concrete scenario can be downloaded per logical scenario
+        </li>
+        <li>Previous/next revision are visible in scenario history
+        </li>
+        <li>Check boxes added to indicate that metadata titles are toggleable
+        </li>
+        <li>Added ability to mark comments as being problem reports
+    </ul>
+
+
+    <h2> Resolved Bugs
+    </h2>
+    <ul>
+        <li>Comment length is now validated before submission
+        </li>
+        <li>Improved resizing of detail view in smaller resolutions
+        </li>
+        <li>Open tabs now persist when a new revision is opened in detail view
+        </li>
+        <li>Inactive revisions no longer appear in detail view revision dropdown
+        </li>
+    </ul>
+
+    <h1>Version 0.2.3 - June 14, 2019</h1>
+
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>New scenario detail screen including:
+            <ul>
+                <li>File view</li>
+                <li>File diffing</li>
+                <li>Commenting</li>
+                <li>Images</li>
+                <li>User tagging</li>
+                <li>Individual scenario download</li>
+                <li>Favouriting</li>
+                <li>History</li>
+            </ul>
+        </li>
+        <li>
+            Additional help text and tooltips
+        </li>
+    </ul>
+
+
+    <h1>Version 0.2.2 - May 31, 2019</h1>
+
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>Curators can now:
+            <ul>
+                <li>Delete records</li>
+                <li>Revert record changes</li>
+                <li>View and reproduce downloads</li>
+                <li>Edit MUSICC files in-browser</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2> Resolved Bugs
+    </h2>
+    <ul>
+        <li>Downloading no longer redirects to the login screen when receiving an error code
+        </li>
+    </ul>
+
+    <h2> Technical Tasks
+    </h2>
+    <ul>
+        <li>Users can belong to organisations
+        </li>
+    </ul>
+
+    <h1>Version 0.2.1 - May 17, 2019</h1>
+
+
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>OSC files in logical downloads now have ODR file references
+        </li>
+        <li>Data from the MUSICC FileHeader is now included as a comment in OSC files in concrete scenario exports
+        </li>
+        <li>Site now has release notes
+        </li>
+    </ul>
+    <h2> Resolved Bugs
+    </h2>
+    <ul>
+        <li>Can&#39;t search by updateDateTime using query generator block
+        </li>
+        <li>Switching revisions resets the toggled columns
+        </li>
+        <li>"Invalid search" indicator is not reset when revision is changed
+        </li>
+        <li>Filter selector selection doesn&#39;t reset after a selection is made
+        </li>
+        <li>Downloading doesn&#39;t work in Edge
+        </li>
+        <li>Default column activation can occur before result table is initialised
+        </li>
+    </ul>
+
+    <h1>Version 0.2.0 - May 01, 2019</h1>
+
+    <h2> Resolved Bugs
+    </h2>
+    <ul>
+        <li>Downloaded scenarios are missing XML namespace header
+        </li>
+        <li>Switching revisions causes download to occur multiple times
+        </li>
+        <li>Browser Compatibility fixes
+        </li>
+    </ul>
+
+
+
+    <h1>Version 0.1.2 - April 24, 2019</h1>
+
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>Functionality for revision migration
+        </li>
+        <li>SSL added to support https
+        </li>
+        <li>Scrolling added to main content window to support lower resolutions
+        </li>
+    </ul>
+
+    <h1>Version 0.1.1 - April 15, 2019</h1>
+
+    <h2> New Functionality
+    </h2>
+    <ul>
+        <li>User can search on any active revision
+        </li>
+        <li>User can 'browse all' with empty or '*' search
+        </li>
+        <li>Overwrite MUSICC FileHeader info on import
+        </li>
+        <li>Changed download type names from native/non-native to logical/concrete
+        </li>
+        <li>Validate ScenarioType (concrete/logical) on import
+        </li>
+    </ul>
+
+    <h2> Technical Tasks
+    </h2>
+    <ul>
+        <li>Implemented Apache
+        </li>
+        <li>Rebranding from Transport Systems to Connected Places
+        </li>
+        <li>Links to MUSICC website, About box, etc. added
+        </li>
+    </ul>
+
+    <h1>Version 0.1.0 - April 05, 2019</h1>
+    <ul>
+        <li>Initial release
+        </li>
+    </ul>
+
+</div>
+{% endblock %}

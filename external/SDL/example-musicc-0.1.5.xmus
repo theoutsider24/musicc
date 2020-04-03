@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+MUSICC - Multi User Scenario Catalogue for Connected and Autonomous Vehicles
+Copyright (C)2020 Connected Places Catapult
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Contact: musicc-support@cp.catapult.org.uk
+         https://cp.catapult.org.uk/case-studies/musicc/ 
+-->
+
+<MUSICCScenario
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="MUSICC_0.1.5.xsd">
+
+    <FileHeader label="UK CPC-Demo highway_test_double_lane_change"
+                version="3"
+                updateDateTime="2019-07-26T10:00:00"
+                updateUsername="Zeyn Saigol"
+                revision="0.1.5" />
+
+    <Metadata>
+        <Description value="Busy highway cut-in with ego in middle lane, braking vehicle ahead in outside lane, and inside lane blocked by an HGV" />
+        <CountryCode value="GB"/>
+        <DriveOnRightOrLeft value="Left"/>
+        <UseCase value="Highway"/>
+        <ScenarioType value="Logical"/>  <!-- Alternative is Concrete, which implies no stochastics -->
+
+        <Exposure value="E2"/>
+        <TestcaseWeighting value = "1.2"/> <!-- to be used in scenario selection - this scenario should be selected 20% more often than a scenario with a weight of 1.0-->
+        <SituationDemand value="High"/>
+        <CollisionCategory value="NormalDriving"/> <!-- Alternatives are Collision or NearCollision -->
+        <InitialSpeedLimit value="Urban"/>
+
+        <RealWorldMap value="true" mapDataValidDateTime="2017-07-23T11:03:00Z"/>
+        <RealWorldCoordinate latitude="52.038386" longitude="-0.767261"/>
+
+        <RepresentsADASTest value="true"/>
+        <ADASFeaturesTested>
+            <ADASFeature value="AEB"/>
+            <!-- Full list given in XSD -->
+        </ADASFeaturesTested>
+
+        <SceneGraphModelDetail value="HighPoly"/> <!-- definitions for these values are provided in schema -->
+
+        <SceneGraphModelSensorRealism>
+            <TargetSensor value = "CameraRealistic"/> <!-- definitions for these values are provided in schema -->
+            <TargetSensor value = "LidarRealistic"/>
+            <TargetSensor value = "RadarRealistic"/>
+        </SceneGraphModelSensorRealism>
+
+        <RoadFeatures>
+            <!-- Full list given here for review -->
+            <RoadFeature value="Roundabout" />
+            <RoadFeature value="HighwayEntranceRamp" /> <!-- AKA slip road, on-ramp -->
+            <RoadFeature value="HighwayExitRamp" /> <!-- AKA slip road, off-ramp -->
+            <RoadFeature value="TrafficLightControlledJunction" />
+            <RoadFeature value="3LegJunction" /> <!-- Often a T-Junction -->
+            <RoadFeature value="4LegJunction" />
+            <RoadFeature value="MoreThan4LegJunction" />
+            <RoadFeature value="RailwayCrossing" />
+            <RoadFeature value="PedestrianCrossing" />
+            <RoadFeature value="StopSign" />
+            <RoadFeature value="GiveWaySign" />  <!-- AKA yield sign -->
+            <RoadFeature value="1Lane" />  <!-- In direction of travel, either one lane each way or a single track road (which would also have CentralLaneSharedWithOncomingTraffic) -->
+            <RoadFeature value="2Lane" />
+            <RoadFeature value="3Lane" />
+            <RoadFeature value="4Lane" />
+            <RoadFeature value="MoreThan4Lanes" />
+            <RoadFeature value="CentralLaneSharedWithOncomingTraffic" /> <!-- e.g. single track road-->
+            <RoadFeature value="DividedCarriageway" />  <!-- Implies a physical median, AKA a central reservation -->
+            <RoadFeature value="OneWayRoad" />
+            <RoadFeature value="BicycleLane" />
+            <RoadFeature value="HardShoulderPresent" />
+            <RoadFeature value="HighGradient" />
+            <RoadFeature value="SharpBend" />
+            <RoadFeature value="Roadworks" />
+            <RoadFeature value="Tunnel" />
+        </RoadFeatures>
+
+        <EnvironmentalConditions>
+            <!-- Full list given here for review -->
+            <EnvironmentalCondition value="Rain" />
+            <EnvironmentalCondition value="NoRainButRoadWet" />
+            <EnvironmentalCondition value="Snow" />
+            <EnvironmentalCondition value="Ice" />
+            <EnvironmentalCondition value="Fog" />
+            <EnvironmentalCondition value="Cloudy" />
+            <!-- Time-of-day -->
+            <EnvironmentalCondition value="Daylight" />
+            <EnvironmentalCondition value="Night" />
+            <EnvironmentalCondition value="Dawn" />
+            <EnvironmentalCondition value="Dusk" />
+        </EnvironmentalConditions>
+
+        <IntendedEgoVehicleTypes>
+            <!--Type codes from UNECE Consolidated Resolution on the Construction of Vehicles (R.E.3), Revision 6, plus a few MUSICC-specifc extensions-->
+            <EgoVehicleType value="M1"/> <!--cars-->
+            <EgoVehicleType value="N1"/> <!--vans and pickup trucks-->
+        </IntendedEgoVehicleTypes>
+
+        <EgoManeuverTypes>
+            <!-- Full list given here for review -->
+            <EgoManeuverType value="RightTurn" />
+            <EgoManeuverType value="LeftTurn" />
+            <EgoManeuverType value="GoStraightAtJunction" />
+            <EgoManeuverType value="CrossTrafficTurn" /> <!-- Left turn in countries that drive on the right -->
+            <EgoManeuverType value="WithTrafficTurn" /> <!-- Right turn in countries that drive on the right -->
+            <EgoManeuverType value="UTurn" />
+            <EgoManeuverType value="TurnOntoMinorRoad" />
+            <EgoManeuverType value="TurnOntoMajorRoad" />
+            <EgoManeuverType value="HighwayMerge" />
+            <EgoManeuverType value="HighwayExit" />
+        </EgoManeuverTypes>
+
+        <KeyActorTypes>
+            <!-- Full list given here for review -->
+            <KeyActorType value="PassengerCar" />
+            <KeyActorType value="Truck" />
+            <KeyActorType value="Bus" />
+            <KeyActorType value="Motorcycle" />
+            <KeyActorType value="SmallLowSpeedVehicle" />
+            <KeyActorType value="EmergencyVehicle" />
+            <KeyActorType value="PedalCycle" />
+            <KeyActorType value="Trailer" />
+            <KeyActorType value="MotorizedOffRoadVehicle" />
+            <KeyActorType value="AnimalDrawnVehicle" />
+            <KeyActorType value="RailedVehicle" />
+            <KeyActorType value="RailRoadVehicle" />
+            <KeyActorType value="AnimalRider" />
+            <KeyActorType value="Pedestrian" />
+            <KeyActorType value="TrafficControlPerson" />
+            <!-- Extra categories not part of WISE Drive -->
+            <KeyActorType value="Animal" />
+            <KeyActorType value="InanimateObstacle" />
+        </KeyActorTypes>
+
+        <KeyActorActions>
+            <!-- Full list given here for review -->
+            <KeyActorAction value="ActorCrossingRoad" />
+            <KeyActorAction value="ActorStoppedInRoad" />
+            <KeyActorAction value="EmergencyStop" />
+            <KeyActorAction value="CutIn" />
+            <KeyActorAction value="Overtake" />
+            <KeyActorAction value="EmergencyStop" />
+            <KeyActorAction value="WrongWayTravel" />
+        </KeyActorActions>
+
+        <KeyActorRulesBroken>
+            <!-- current list given here for review -->
+            <RuleSet value="RSSReasonableBehaviour"/>
+            <RuleSet value="NationalAdvice"/> <!-- e.g. highway code for a UK scenario-->
+            <RuleSet value="NationalLaws"/> <!-- e.g. exceeding the speed limit-->
+        </KeyActorRulesBroken>
+
+        <TrafficDensity value="FreeFlow"/>
+        <TrafficAverageSpeed value="UrbanFlowing"/>
+
+		<GlobalTags>
+			<GlobalTag value="UNECE-Test-Set"></GlobalTag>
+		</GlobalTags>
+
+        <Regulations>
+            <Regulation value="UNECE-GRVA-Res2135"/>
+            <Regulation value="UK-RTA-2019-345"/>
+        </Regulations>
+
+        <CustomMetadata>
+            <CustomTag name="EnvironmentalCondition" value="Hail" />
+        </CustomMetadata>
+
+        <SourceOrganization value="Connected Places Catapult"/>
+        <OwningOrganization value="Connected Places Catapult"/>
+    </Metadata>
+
+    <EntityUnderTest> <!-- more than one may be specified-->
+        <EntityRef entityRef="Ego"/>  
+        <GoalPosition>
+            <World x="0" y="10" z="9.5" h="0" p="0" r="0"/> <!-- Must be a location which exists within OpenDRIVE file -->
+        </GoalPosition>
+    </EntityUnderTest>
+
+    <ParameterStochastics> <!-- This closely follows the PEGASUS schema for logical scenarios -->
+        <RoadNetwork>
+            <ParameterGroup name="">
+                <Parameter name="$someODRparameter" unit="metres" type="int">
+                    <Distribution>
+                        <NormalDistribution expectedValue="33.4" variance="10" />
+                    </Distribution>
+                </Parameter>
+            </ParameterGroup>
+        </RoadNetwork>
+
+        <OpenScenario>
+            <ParameterGroup name="">
+                <Parameter name="$someOSCparameter" unit="metres" type="int">
+                    <Distribution>
+                        <NormalDistribution expectedValue="33.4" variance="10" />
+                    </Distribution>
+                </Parameter>
+
+                <Parameter name="$otherOSCparameter" unit="weather-unit" type="string">
+                    <Distribution>
+                        <SingleValues>
+                            <List>
+                                <ListElement value="Rain" label="" probabilityOfOccurence="0.25" />
+                                <ListElement value="Snow" label="" probabilityOfOccurence="0.05" />
+                            </List>
+                        </SingleValues>
+                    </Distribution>
+                </Parameter>
+            </ParameterGroup>
+        </OpenScenario>
+    </ParameterStochastics>
+
+
+
+    <OpenSCENARIO filepath="32564.xosc"/>
+    <OpenDRIVE filepath="RQ31_130Limit.xodr"/>
+
+</MUSICCScenario>

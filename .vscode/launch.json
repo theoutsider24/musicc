@@ -1,0 +1,57 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+
+		{
+			"name": "Python: Django",
+			"type": "python",
+			"request": "launch",
+			"program": "${workspaceFolder}/manage.py",
+			"console": "integratedTerminal",
+			"args": [
+				"runserver",
+				"--nothreading",
+				"0.0.0.0:8000"
+			],
+			"django": true
+		},
+		{
+			"name": "Python: Django - Test",
+			"type": "python",
+			"request": "launch",
+			"program": "${workspaceFolder}/manage.py",
+			"console": "integratedTerminal",
+			"args": [
+				"test",
+			],
+			"django": true
+        },
+        
+        {
+			"name": "Python: Migration 0.1.4",
+			"type": "python",
+            "request": "launch",
+			"program": "${workspaceFolder}/external/python/curator/0.1.5_MUSICC_migration/migration.py",
+            "cwd": "${workspaceFolder}/external/python/curator/0.1.5_MUSICC_migration",
+			"console": "integratedTerminal",
+			"args": [
+				"--dir", "migrated_files", "--mus-zip", "migration_input4.zip", "--xsd-zip", "musicc_0.1.5.zip", "--zip", "migrated_files_0.1.5.zip", "--script", "xml_migration_module.py"
+			],
+        }
+        
+        {
+			"name": "Python: Migration OSC1.0",
+			"type": "python",
+            "request": "launch",
+			"program": "${workspaceFolder}/external/python/curator/MUSICC_OSC_1.0_migration/migration.py",
+            "cwd": "${workspaceFolder}/external/python/curator/MUSICC_OSC_1.0_migration",
+			"console": "integratedTerminal",
+			"args": [
+				"--dir", "migrated_files", "--mus-zip", "query_results_435_15.zip", "--xsd-zip", "musicc_1.0.zip", "--zip", "migrated_files_1.0.0.zip", "--script", "xml_migration_module.py"
+			],
+		}
+	]
+}

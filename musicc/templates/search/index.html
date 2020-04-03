@@ -1,0 +1,67 @@
+<!-- # MUSICC - Multi User Scenario Catalogue for Connected and Autonomous Vehicles
+# Copyright (C)2020 Connected Places Catapult
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: musicc-support@cp.catapult.org.uk
+#          https://cp.catapult.org.uk/case-studies/musicc/'
+#
+-->
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<script src="{% static "/js/common/tools.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/common/json.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/common/toasts.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/search/main.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/search/resultTable.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/search/sidebar.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/search/searchbar.js" %}?ver={{VERSION}}"></script>
+<script src="{% static "/js/common/detail.js" %}?ver={{VERSION}}"></script>
+
+
+<script src="{% static "/js/lib/jsonform/deps/underscore.js" %}"></script>
+<script src="{% static "/js/lib/jsonform/deps/opt/jsv.js" %}"></script>
+<script src="{% static "/js/lib/jsonform/deps/opt/jquery-ui.js" %}"></script>
+<script src="{% static "/js/lib/jsonform/deps/opt/bootstrap-dropdown.js" %}"></script>
+<script src="{% static "/js/lib/jsonform/deps/opt/bootstrap-wysihtml5.js" %}"></script>
+<script src="{% static "/js/lib/jsonform/deps/opt/spectrum.js" %}"></script>
+<script src="{% static "/js/lib/jsonform/deps/opt/ace/ace.js" %}"></script>
+<script src="{% static "/js/lib/jsonform/deps/opt/ace/mode-json.js" %}"></script>
+<script src="{% static "/js/lib/jsonform/deps/opt/ace/mode-html.js" %}"></script>
+<script src="{% static "/js/lib/jsonform/deps/opt/ace/mode-css.js" %}"></script>
+<script src="{% static "/js/lib/jsonform/deps/opt/ace/mode-javascript.js" %}"></script>
+<script src="{% static "/js/lib/jsonform/deps/opt/ace/mode-less.js" %}"></script>
+<script src="{% static "/js/lib/jsonform/deps/opt/ace/mode-markdown.js" %}"></script>
+<script src="{% static "/js/lib/jsonform/deps/opt/jquery.transloadit2.js" %}"></script>
+
+<script src="{% static "/js/lib/jsonform/lib/jsonform.js" %}"></script>
+<script src="{% static "/js/lib/jsonViewer.js" %}"></script>
+<script src="{% static "/js/lib/diff2html.js" %}"></script>
+
+<link rel="stylesheet" href="{% static "/js/lib/jsonform/deps/opt/bootstrap-wysihtml5.css" %}">
+<link rel="stylesheet" href="{% static "/js/lib/jsonform/deps/opt/spectrum.css" %}">
+<link rel="stylesheet" href="{% static "/css/lib/diff2html.css" %}">
+
+<link rel="stylesheet" href="{% static "/css/detail.css" %}?ver={{VERSION}}">
+<link rel="stylesheet" href="{% static "/css/search.css" %}?ver={{VERSION}}">
+
+{% include "search/sidebar.html" %}
+{% include "search/result-pane.html" %}
+
+<script type="text/javascript">
+	var tokeniserRegex = new RegExp("{{tokeniserRegex | safe}}", "g");	
+</script>
+
+{% endblock %}

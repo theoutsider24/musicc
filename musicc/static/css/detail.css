@@ -1,0 +1,397 @@
+#detail #content > .tabs {
+    width: 50%;
+    display: inline-block;
+    height: 94%;
+    position: absolute;
+}
+
+#detail #content .tabs.left {
+	left:0px;
+}
+
+#detail #content .tabs.right {
+	right:0px;
+}
+
+#detail {
+	overflow-x: scroll;
+	padding-bottom: 400px;
+    margin-bottom: -400px;
+}
+
+#detail > div:nth-child(1) {
+	overflow: auto;
+}
+
+#detail #header {
+	width: max-content;
+}
+
+#detail #header > div {
+	float:left;
+	margin-right: 20px;
+}
+
+#detail #header #label {
+	width: 550px;
+	padding-bottom: 0.5em;
+}
+#detail #header #label > span {
+	display: block;
+	height: 80%;
+	margin: 0px 10px;
+	overflow: hidden;
+	line-height: 1.4em;
+}
+
+#detail #header #revision span > a, #detail #header #version a, #history-tab > a {
+    color: #3174c7;
+}
+#detail #header > div > span, #detail #tags > div {
+	border: 1px darkgray solid;
+	border-radius: 0.7em;
+	text-align: center;
+	line-height: 28px;
+	font-size: 12pt;
+	padding: 0.2em 1em;
+	background:whitesmoke;
+	overflow: hidden;
+	margin-left: 5px;
+}
+
+#revision-button {
+	cursor: pointer;	
+}
+
+#detail .ui-tabs-panel {
+	white-space: pre-wrap;
+	height: inherit;
+	overflow-y: scroll;
+}
+
+#detail .diff-tab {
+	white-space: initial;
+	display: flex;
+}
+
+.diff-selector {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	white-space: initial;
+	margin-right: 2em;
+	margin-top: 3em;
+	border: solid grey 1px;
+	padding: 5px;
+	border-radius: 3px;
+    background: white;
+}
+
+.tabs li .ui-icon-close { 
+	float: left;
+	margin: 0.4em 0.2em 0 0; 
+	cursor: pointer; 
+}
+
+.comment-content {
+	padding: 10px;
+    border-radius: 10px;
+	background: lightblue;
+	display: flex;
+	width: 100%;
+}
+
+.comment {
+	padding: 20px;
+}
+
+.comment-text-area {
+	position: absolute;
+	bottom: 0px;
+	width: 85%;
+	border: 1px solid gray;
+	padding: 5px;
+	margin: 50px;
+	border-radius: 25px;
+	background: whitesmoke;
+}
+
+#detail .ui-tabs-panel#discussion-tab {
+	white-space: initial;
+}
+
+#comment-wrapper {
+	overflow: auto;
+	position: absolute;
+	width: 95%;
+	height: calc(90% - 120px);
+}
+
+.comment .version {
+    float: right;
+}
+
+#discussion-tab .tag.curator {
+	background: honeydew;
+}
+
+#discussion-tab .tag.author {
+    background: whitesmoke;
+}
+
+#discussion-tab .tag.moderator {
+	background-color: wheat;
+}
+
+#discussion-tab .tag {
+	border: silver 1px solid;
+    border-radius: 10px;
+    padding: 0px 4px;
+}
+
+.comment-text-area > form > div:nth-child(1) {
+    float: left;
+    width: 75%;
+}
+
+.comment-text-area > form > div:nth-of-type(2) {
+    float: left;
+    width: 25%;
+    display: flex;
+}
+
+.comment-text-area input[type="text"] {
+	background: inherit;
+	border: none;
+	width: 100%;
+}
+
+.comment-text-area input[type="submit"] {
+    width: 70%;
+    border: none;
+    border-left: 1px gray solid;
+    background: inherit;
+}
+
+.comment-text-area input[type="checkbox"] {
+	margin-right: 10px;
+}
+
+#discussion-tab .ui-icon-alert {
+	margin-top: 2px;
+}
+
+#detail .ui-tabs-panel#discussion-tab {
+	overflow: auto;
+	position:relative;
+}
+
+#discussion-tab .controls {
+	padding: 10px;
+	border-bottom: 1px solid gray;
+	height:50px;
+}
+
+#discussion-tab .controls > * {
+    float: right;
+    padding-right: 5px;
+}
+
+#history-tab {
+	white-space: initial !important;
+}
+
+#history-tab > table {
+	width: 100%;
+	margin: 10px 0px;
+}
+
+#history-tab > table tr {
+	border-bottom: grey dashed 1px;
+}
+
+#history-tab > table tr:not(.ui-state-active) {	
+	cursor: pointer;
+}
+
+#history-tab > table td div.file:not(.ui-state-active) {	
+	cursor: pointer;
+}
+
+#history-tab > table td {
+	width:100px;
+	padding: 10px;
+}
+
+#history-tab > table td .file {
+	height:50px;
+	width:50px;
+	border: solid black 1.5px;
+	line-height: 1.5em;
+	text-align: center;
+}
+
+tr.ui-state-active .file:not(.ui-state-active) {
+	background: white;
+	font-weight: normal;
+	color: black;
+}
+
+.custom-menu {
+    display: none;
+    z-index: 1000;
+    position: fixed;
+    overflow: hidden;
+    border: 1px solid #CCC;
+    white-space: nowrap;
+    font-family: sans-serif;
+    background: #FFF;
+    color: #333;
+	border-radius: 5px;	
+    list-style: none;
+    padding: 0px;
+}
+
+.custom-menu li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.custom-menu li.disabled {
+	cursor: auto;
+	color: grey;
+}
+
+.custom-menu li:hover:not(.disabled) {
+    background-color: #DEF;
+}
+
+#history-tab > table td .file.diff {
+	border-style: dashed;
+}
+
+#history-tab >table td .file.selected {
+	border-color: lightcoral;
+}
+
+#discussion-tab .controls > button.moderator {
+    float: left;
+}
+
+.comment-text-area .comments-locked {
+	text-align: center;
+}
+
+#discussion-tab .comments-disabled {
+	text-align: center;
+    padding-top: 100px;
+}
+
+#discussion-tab button.delete, #discussion-tab button.undelete {
+	right: 30px;
+    position: absolute;
+    background: inherit;
+    color: red;
+    border: none;
+    line-height: 1.3em;
+	display: none;
+	border-radius:15px;
+}
+
+#discussion-tab button.undelete {
+	color: green;
+}
+
+#discussion-tab .comment:hover button.delete, #discussion-tab .comment:hover button.undelete {
+	display:initial;
+}
+
+.comment.deleted * {
+	color: grey;
+}
+
+.comment.deleted .comment-content {
+	background: rgba(173, 216, 230, 0.7);
+}
+
+#detail #header #tags .tag, #detail #header #tags span {
+	font-size: small;
+    border: 1px solid gray;
+    line-height: 1em;
+    border-radius: inherit;
+    width: fit-content;
+    position: relative;
+    padding: 1px 4px;
+    float: left;
+    margin-right: 2px;
+	margin-bottom: 2px;
+	
+}
+
+#header #tags span {
+	background: white;
+}
+
+#header #tags {
+	width: 200px;
+	height: -webkit-fill-available;
+    max-height: 2em;
+    padding-top: 0px;
+	margin-top: 0px;
+}
+
+#tags > div {	
+    width: inherit;
+	height: 2em;
+	z-index: 1;
+    min-height: 2em;
+}
+
+#tags > div .tag .ui-icon-close {
+	position: absolute;
+    right: 0px;
+    top: 3px;
+    display: none;
+    background-color: whitesmoke;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 14px;
+    background-position: -80px -129px;
+}
+
+#detail #revision > div, #detail #version > div {
+	float:left;
+	padding: 0.2em 0em;	
+}
+
+#tags > div .tag:hover .ui-icon-close  {
+    display:  initial;
+}
+
+#tags > div .ui-icon-plus {
+	position: absolute;
+    bottom: 5px;
+    right: 5px;
+    border-radius: 50%;
+    border: 1px grey solid;
+	background-position: -17px -130px;
+	display: none;
+    cursor: pointer;
+}
+
+#tags > div:hover .ui-icon-plus {
+	display: initial;
+}
+
+#individual-download-button-dropdown.dropdown-content a {	
+	padding: 12px 6px;
+}
+
+#revision-button-dropdown > a {
+	padding: 4px 1em;
+}
+
+#revision-button-dropdown.dropdown-content {
+	margin: 25px 9px;
+	text-align: center;
+}

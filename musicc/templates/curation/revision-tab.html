@@ -1,0 +1,52 @@
+<!-- # MUSICC - Multi User Scenario Catalogue for Connected and Autonomous Vehicles
+# Copyright (C)2020 Connected Places Catapult
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: musicc-support@cp.catapult.org.uk
+#          https://cp.catapult.org.uk/case-studies/musicc/'
+#
+-->
+<div id="revision-table-wrapper" style="width:fit-content">
+    <table id="revision-table" class="display">
+        <thead>
+            <tr>
+                <th>Musicc Revision</th>
+                <th>OpenDrive Revision</th>
+                <th>OpenSCENARIO Revision</th>
+                <th>Start Date</th>
+                <th>Scenario Count</th>
+                <th>Upload</th>
+                <th>Dump</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+
+<div id="revision-file-upload">
+    <form method="post" enctype="multipart/form-data" action="/upload_revisions">
+        {% csrf_token %}
+        open scenario xsd
+        <input type="file" name="open_scenario_xsd" accept=".xsd,.zip">
+        <input type="text" name="open_scenario_rev_id" style="display: block;" placeholder="OpenScenario Revision id">
+        open drive xsd
+        <input type="file" name="open_drive_xsd" accept=".xsd,.zip">
+        <input type="text" name="open_drive_rev_id" style="display: block;" placeholder="OpenDrive Revision id">
+        musicc xsd
+        <input type="file" name="musicc_xsd" accept=".xsd,.zip">
+        <input type="text" name="musicc_rev_id" style="display: block;" placeholder="MUSICC Revision id">
+    </form>
+</div>
