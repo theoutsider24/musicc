@@ -6,7 +6,9 @@ We use GitLab's [issue tracker](https://gitlab.com/connected-places-catapult/mus
 
 # Code contributions
 
-Please look at the [roadmap](docs/Roadmap.md), or drop us an email, before starting work on a new contribution. 
+Please look at the [roadmap](docs/Roadmap.md), or drop us an email, before starting work on a new contribution.
+
+Getting started with the source code is covered in the [developer setup guide](docs/developer_setup.md).
 
 # Contribution mechanics
 

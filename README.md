@@ -54,58 +54,27 @@ The default admin account details are
 
 To access the admin panel navigate to [localhost/admin](http://localhost/admin)
 
-## Building from source
+## Synchronise scenarios and SDL revisions from master
 
-You will need the following:
-- Postgres 12
-- Python 3.6 or greater
-Postgres should be configured with the default settings.
+To synchronise the regulatory scenarios, and SDL revisions, from the master instance managed by CPC, first register your private system:
 
-1. Clone the repository
-```bash
-git clone https://gitlab.com/connected-places-catapult/musicc.git
-```
-2. Install required Python libraries
-```
-cd musicc
-pip install -r requirements.txt
-```
-3. Perform Django migrations
-```bash
-python manage.py migrate
-```
-4. Open the Django shell and create new user with account details - username: *admin*, password: *admin*
-```bash
-python manage.py shell
-```
-```python
-from django.contrib.auth import get_user_model
-User = get_user_model()
-User.objects.create_superuser('admin', 'admin@myproject.com', 'admin', first_name = 'System', last_name = 'Admin')
-exit()
-```
-5. (Optional) Register local system as master
-```bash
-python manage.py shell
-```
-```python
-from musicc.models.System import System
-System.register_as_master()
-exit()
-```
-6. Launch MUSICC
-```bash
-python manage.py runserver
-```
+* Log on to the master instance
+* Go to 'profile' (top-right), 'My Registered Systems', and generate a registration token
+* On your local instance, go to the 'system' tab (along the bottom)
+* Click on 'Register System' and copy the token in
+* Choose a prefix. This will be applied to the "friendly" ID for all scenarios created in this instance. Note scenarios from the CPC-managed "master" instance of MUSICC all have an "M" prefix (e.g. M1234)
 
-- To access the admin panel navigate to [localhost/admin](http://localhost/admin)
-- Sync from the master to access the MUSICC SDL revisions, or upload them from the curation interface manually
+To synchronise the scenarios and SDL:
+
+* On the master instance, under 'My Registered Systems', click 'Generate synchronisation token' for your new private instance
+* On your private installation, in the 'system' tab, click 'Synchronise system' and copy this token into the box
 
 
 # Guide to Other Documentation
 
 * [User guide](docs/MUSICC_User_Guide.pdf) (PDF) - this is the best place to start
 * Guide to [MUSICC's scenario format](docs/MUSICC_SDL_Specification_0.1.5.pdf) (PDF), aka the SDL (scenario description language)
+* [Developer setup and building from source](docs/developer_setup.md)
 * [Docker configuration](docs/docker_installation.md)
 * Guide on [how to contribute to the project](CONTRIBUTING.md)
 * [Roadmap for future development](docs/roadmap.md)
