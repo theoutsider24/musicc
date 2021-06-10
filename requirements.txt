@@ -1,4 +1,4 @@
-Django==2.2
+Django==2.2.24
 psycopg2-binary==2.7.6.1
 xmljson==0.2.0
 simplejson==3.16.0
