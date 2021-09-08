@@ -8,7 +8,7 @@ coverage==4.3.4
 django-db-logger==0.1.7
 numpy==1.16.2
 coverage2clover==1.4.0
-pillow==5.4.1
+pillow==8.3.2
 django-role-permissions==2.2.1
 PyYAML==3.12
 ua-parser==0.8.0
